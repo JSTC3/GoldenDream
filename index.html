@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Golden Dream</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#C9A84C;
+  --gold-light:#E8C97E;
+  --gold-pale:#F5EDD3;
+  --dark:#0E0C08;
+  --dark-2:#1A1710;
+  --dark-3:#252017;
+  --cream:#F8F3E8;
+  --cream-2:#EDE5D0;
+  --muted:#8A7D5A;
+  --border:rgba(201,168,76,0.15);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--cream);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;min-height:100vh;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 3.5rem;
+  background:rgba(14,12,8,0.96);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;
+  letter-spacing:0.28em;color:var(--gold);text-transform:uppercase;cursor:pointer;
+}
+.nav-menu{display:flex;gap:0;list-style:none;position:relative;}
+.nav-item{position:relative;}
+.nav-link{
+  display:block;padding:0.5rem 1.1rem;
+  color:var(--cream-2);text-decoration:none;
+  font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;
+  transition:color .25s;cursor:pointer;background:none;border:none;font-family:'Jost',sans-serif;
+}
+.nav-link:hover,.nav-link.active{color:var(--gold);}
+.dropdown{
+  display:none;position:absolute;top:100%;left:0;
+  background:rgba(14,12,8,0.98);border:1px solid var(--border);
+  min-width:220px;z-index:300;
+}
+.nav-item:hover .dropdown{display:block;}
+.dropdown-section{padding:.5rem 0;}
+.dropdown-label{
+  padding:.4rem 1.2rem;font-size:0.58rem;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--gold);opacity:.7;
+}
+.dropdown-link{
+  display:block;padding:.5rem 1.2rem;
+  color:var(--cream-2);text-decoration:none;font-size:.75rem;
+  letter-spacing:.05em;transition:color .2s,background .2s;cursor:pointer;
+}
+.dropdown-link:hover{color:var(--gold);background:rgba(201,168,76,.05);}
+.dropdown-sub{padding-left:1rem;border-left:1px solid var(--border);margin:.2rem 1.2rem;}
+.nav-reserve{
+  background:var(--gold);color:var(--dark);border:none;
+  padding:.55rem 1.5rem;font-family:'Jost',sans-serif;font-size:.65rem;
+  letter-spacing:.2em;text-transform:uppercase;cursor:pointer;font-weight:400;
+  transition:background .25s;
+}
+.nav-reserve:hover{background:var(--gold-light);}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;padding-top:65px;}
+.page.active{display:block;}
+
+/* ── HOME HERO ── */
+.home-hero{
+  position:relative;height:100vh;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('land.jpeg') no-repeat center center/cover;
+  display:flex;align-items:flex-end;justify-content:flex-start;
+}
+.home-overlay-box{
+  background:rgba(45,30,15,0.85);
+  color:#f5e6c8;
+  padding:40px;margin:40px;max-width:420px;
+  border-left:4px solid #d4af37;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+.home-tagline{
+  font-size:14px;letter-spacing:1px;color:#d4af37;margin-bottom:10px;
+}
+.home-hero h1{
+  font-family:'Georgia',serif;font-size:36px;line-height:1.2;margin:10px 0 20px;color:#f5e6c8;
+}
+.home-hero p{
+  font-size:16px;line-height:1.6;margin-bottom:25px;color:#f5e6c8;
+}
+.home-buttons{
+  display:flex;gap:10px;
+}
+.home-btn{
+  padding:12px 18px;text-decoration:none;font-size:14px;border:1px solid #d4af37;
+  color:#d4af37;transition:0.3s;display:inline-block;
+}
+.home-btn:hover{
+  background:#d4af37;color:#2d1e0f;
+}
+.home-btn.primary{
+  background:#d4af37;color:#2d1e0f;
+}
+.home-btn.primary:hover{
+  background:transparent;color:#d4af37;
+}
+@media (max-width:768px){
+  .home-overlay-box{margin:20px;padding:25px;}
+  .home-hero h1{font-size:28px;}
+}
+
+/* ── SHARED HERO ── */
+.hero{
+  position:relative;height:calc(100vh - 65px);min-height:580px;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.hero-bg-dark{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 55%,rgba(201,168,76,.07) 0%,transparent 70%),#0E0C08;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(201,168,76,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.035) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 50%,black 10%,transparent 80%);
+}
+.hero-inner{position:relative;z-index:2;text-align:center;max-width:820px;padding:0 2rem;animation:fadeUp 1.2s cubic-bezier(.22,1,.36,1) both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.8rem;
+  font-size:.6rem;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:1.6rem;
+}
+.eyebrow::before,.eyebrow::after{content:'';display:block;width:32px;height:1px;background:var(--gold);opacity:.6;}
+.hero-h1{
+  font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.05;
+  font-size:clamp(3rem,8vw,6rem);margin-bottom:1.2rem;color:var(--cream);
+}
+.hero-h1 em{font-style:italic;color:var(--gold-light);}
+.hero-p{font-size:.83rem;letter-spacing:.08em;color:var(--muted);max-width:480px;margin:0 auto 2.5rem;line-height:1.9;}
+.hero-btns{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;}
+.btn-gold{background:var(--gold);color:var(--dark);border:none;padding:.85rem 2.2rem;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;font-weight:400;transition:background .25s;}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-outline{background:transparent;color:var(--cream-2);border:1px solid rgba(201,168,76,.35);padding:.85rem 2.2rem;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .25s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── SECTION COMMONS ── */
+.section{padding:6rem 3.5rem;}
+.section-inner{max-width:1160px;margin:0 auto;}
+.section-label{font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;display:flex;align-items:center;gap:.7rem;}
+.section-label::before{content:'';display:block;width:20px;height:1px;background:var(--gold);}
+.section-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2rem,4vw,3rem);line-height:1.2;color:var(--cream);margin-bottom:1.2rem;}
+.section-title em{font-style:italic;color:var(--gold-light);}
+.section-sub{font-size:.82rem;color:var(--muted);line-height:1.9;max-width:560px;}
+.divider-line{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--border),transparent);margin:0;}
+
+/* ── GRID LAYOUTS ── */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+
+/* ── CARDS ── */
+.card{background:var(--dark-2);padding:2.5rem;position:relative;overflow:hidden;transition:background .3s;cursor:pointer;}
+.card:hover{background:var(--dark-3);}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .4s;transform-origin:left;}
+.card:hover::before{transform:scaleX(1);}
+.card-num{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:rgba(201,168,76,.1);position:absolute;top:.8rem;right:1.2rem;line-height:1;}
+.card-icon{width:38px;height:38px;border:1px solid rgba(201,168,76,.25);display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;}
+.card-icon svg{width:17px;height:17px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--cream);margin-bottom:.6rem;}
+.card-text{font-size:.78rem;color:var(--muted);line-height:1.85;margin-bottom:1.2rem;}
+.card-link{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;}
+.card-link::after{content:'';display:block;width:16px;height:1px;background:var(--gold);transition:width .3s;}
+.card:hover .card-link::after{width:32px;}
+
+/* ── PHOTO BLOCKS ── */
+.photo-block{background:var(--dark-3);border:1px solid var(--border);position:relative;overflow:hidden;}
+.photo-placeholder{width:100%;display:flex;align-items:center;justify-content:center;padding:0;}
+.photo-art{opacity:.35;width:100%;height:100%;}
+
+/* ── FEATURE LIST ── */
+.feature-list{display:flex;flex-direction:column;gap:.9rem;margin-top:2rem;}
+.feat-row{display:flex;gap:.9rem;align-items:flex-start;}
+.feat-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;margin-top:5px;flex-shrink:0;}
+.feat-text{font-size:.8rem;color:var(--muted);line-height:1.7;}
+
+/* ── GOLD BAR ── */
+.gold-bar{background:var(--gold);padding:2.8rem 3.5rem;}
+.gold-bar-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);}
+.stat-item{text-align:center;border-right:1px solid rgba(14,12,8,.18);padding:0 1rem;}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--dark);line-height:1;}
+.stat-label{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(14,12,8,.5);margin-top:.3rem;}
+
+/* ── TABLE ── */
+.hours-table{width:100%;border-collapse:collapse;margin-top:2rem;}
+.hours-table th{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);padding:.8rem 1.5rem;text-align:left;border-bottom:1px solid var(--border);}
+.hours-table td{padding:.85rem 1.5rem;font-size:.82rem;color:var(--muted);border-bottom:1px solid rgba(201,168,76,.06);}
+.hours-table td:first-child{color:var(--cream);font-weight:400;}
+.hours-table tr:hover td{background:rgba(201,168,76,.03);}
+
+/* ── MENU ── */
+.menu-section{margin-bottom:3.5rem;}
+.menu-cat{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;color:var(--gold-light);margin-bottom:1.5rem;padding-bottom:.8rem;border-bottom:1px solid var(--border);}
+.menu-item{display:flex;justify-content:space-between;align-items:baseline;padding:.7rem 0;border-bottom:1px solid rgba(201,168,76,.05);}
+.menu-item-name{font-size:.9rem;color:var(--cream);font-weight:300;}
+.menu-item-desc{font-size:.73rem;color:var(--muted);margin-top:.15rem;}
+.menu-item-left{flex:1;}
+.menu-price{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);margin-left:1.5rem;white-space:nowrap;}
+
+/* ── FORM ── */
+.form-wrap{margin-top:2.5rem;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);}
+.f-field{background:var(--dark-2);}
+.f-field.full{grid-column:1/-1;}
+.f-field input,.f-field textarea,.f-field select{
+  width:100%;background:transparent;border:none;outline:none;
+  padding:1.3rem 1.6rem;color:var(--cream);font-family:'Jost',sans-serif;
+  font-size:.8rem;letter-spacing:.05em;font-weight:300;resize:none;
+}
+.f-field input::placeholder,.f-field textarea::placeholder{color:var(--muted);}
+.f-field select option{background:var(--dark-2);color:var(--cream);}
+.f-submit{
+  grid-column:1/-1;width:100%;padding:1.3rem;background:var(--gold);color:var(--dark);
+  border:none;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.3em;
+  text-transform:uppercase;cursor:pointer;font-weight:400;transition:background .25s;
+}
+.f-submit:hover{background:var(--gold-light);}
+
+/* ── ORNAMENT ── */
+.orn{display:flex;align-items:center;justify-content:center;gap:1.2rem;padding:2.5rem 0;}
+.orn::before,.orn::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.2),transparent);}
+.orn-diamond{width:10px;height:10px;background:var(--gold);transform:rotate(45deg);opacity:.5;}
+
+/* ── ROOMS GRID ── */
+.rooms-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);margin-top:3rem;}
+.room-card{background:var(--dark-2);padding:2rem;border-top:2px solid transparent;transition:border-color .3s,background .3s;cursor:pointer;}
+.room-card:hover{background:var(--dark-3);border-top-color:var(--gold);}
+.room-tag{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;}
+.room-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--cream);margin-bottom:.6rem;}
+.room-capacity{font-size:.75rem;color:var(--muted);margin-bottom:1rem;}
+.room-features{display:flex;flex-wrap:wrap;gap:.5rem;}
+.room-feat{font-size:.62rem;letter-spacing:.1em;border:1px solid var(--border);padding:.3rem .7rem;color:var(--muted);}
+
+/* ── PRICE TABLE ── */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:3rem;}
+.price-card{background:var(--dark-2);padding:2.5rem;text-align:center;}
+.price-card.featured{background:var(--dark-3);border-top:2px solid var(--gold);}
+.price-badge{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block;}
+.price-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--cream);margin-bottom:.5rem;}
+.price-amount{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--gold);margin:1rem 0;}
+.price-period{font-size:.68rem;color:var(--muted);}
+.price-features{text-align:left;margin:1.5rem 0;display:flex;flex-direction:column;gap:.6rem;}
+.price-feat{font-size:.75rem;color:var(--muted);display:flex;gap:.6rem;align-items:flex-start;}
+.price-feat::before{content:'—';color:var(--gold);flex-shrink:0;}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;flex-direction:column;gap:0;margin-top:2.5rem;}
+.tl-item{display:flex;gap:2rem;padding:1.8rem 0;border-bottom:1px solid rgba(201,168,76,.07);}
+.tl-time{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;color:var(--gold);white-space:nowrap;min-width:80px;}
+.tl-content{}
+.tl-title{font-size:.85rem;color:var(--cream);font-weight:400;margin-bottom:.3rem;}
+.tl-desc{font-size:.75rem;color:var(--muted);line-height:1.7;}
+
+/* ── 404 ── */
+.e404{min-height:calc(100vh - 65px);display:flex;align-items:center;justify-content:center;text-align:center;}
+.e404-num{font-family:'Cormorant Garamond',serif;font-size:12rem;font-weight:300;line-height:1;color:rgba(201,168,76,.12);}
+.e404-msg{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--cream);margin-top:-2rem;margin-bottom:1rem;}
+.e404-sub{font-size:.8rem;color:var(--muted);margin-bottom:2.5rem;}
+
+/* ── COOKIES ── */
+.cookie-content{max-width:740px;margin:0 auto;padding:5rem 3.5rem;}
+.cookie-content h2{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--cream);margin:2rem 0 .8rem;}
+.cookie-content p{font-size:.82rem;color:var(--muted);line-height:1.9;margin-bottom:1rem;}
+.cookie-content ul{padding-left:1.2rem;}
+.cookie-content li{font-size:.8rem;color:var(--muted);line-height:1.8;margin-bottom:.4rem;}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);border-top:1px solid var(--border);padding:4rem 3.5rem 2rem;}
+.footer-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:.8rem;}
+.footer-desc{font-size:.76rem;color:var(--muted);line-height:1.85;max-width:220px;}
+.footer-col-title{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.footer-links li span{color:var(--muted);text-decoration:none;font-size:.75rem;cursor:pointer;transition:color .25s;display:block;}
+.footer-links li span:hover{color:var(--cream);}
+.footer-bottom{max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,.08);}
+.footer-copy{font-size:.68rem;color:var(--muted);}
+.footer-legal{display:flex;gap:1.5rem;}
+.footer-legal span{font-size:.68rem;color:var(--muted);cursor:pointer;transition:color .25s;}
+.footer-legal span:hover{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav>
+  <div class="nav-logo" onclick="go('home')">Golden Dream</div>
+  <ul class="nav-menu">
+    <li class="nav-item">
+      <button class="nav-link" onclick="go('home')">Home</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link">Bakery & Restaurant ▾</button>
+      <div class="dropdown">
+        <div class="dropdown-section">
+          <div class="dropdown-label">Bakery & Restaurant</div>
+          <span class="dropdown-link" onclick="go('bakery')">Overview</span>
+          <span class="dropdown-link" onclick="go('bakery-menu')">Our Menu</span>
+          <span class="dropdown-link" onclick="go('bakery-fine-dining')">Fine Dining</span>
+          <span class="dropdown-link" onclick="go('bakery-artisan')">Artisan Bakery</span>
+          <span class="dropdown-link" onclick="go('bakery-signature')">Signature Experiences</span>
+          <span class="dropdown-link" onclick="go('bakery-reservations')">Reservations</span>
+          <span class="dropdown-link" onclick="go('bakery-hours')">Opening Hours</span>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link">Event Hall ▾</button>
+      <div class="dropdown">
+        <div class="dropdown-section">
+          <div class="dropdown-label">Events</div>
+          <span class="dropdown-link" onclick="go('events')">Overview</span>
+          <span class="dropdown-link" onclick="go('events-weddings')">Weddings</span>
+          <span class="dropdown-link" onclick="go('events-parties')">Private Parties</span>
+          <span class="dropdown-link" onclick="go('events-conferences')">Conferences</span>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link">Offices ▾</button>
+      <div class="dropdown">
+        <div class="dropdown-section">
+          <div class="dropdown-label">Offices</div>
+          <span class="dropdown-link" onclick="go('offices')">Overview</span>
+          <div class="dropdown-label" style="margin-top:.4rem;">Coworking</div>
+          <span class="dropdown-link" onclick="go('offices-coworking')">Coworking Hub</span>
+          <span class="dropdown-link" onclick="go('offices-coworking-spaces')">Coworking Spaces</span>
+          <div class="dropdown-label" style="margin-top:.4rem;">Private Offices</div>
+          <span class="dropdown-link" onclick="go('offices-private')">Private Office</span>
+          <span class="dropdown-link" onclick="go('offices-private-suite')">Private Suite</span>
+          <div class="dropdown-label" style="margin-top:.4rem;">Meeting Rooms</div>
+          <span class="dropdown-link" onclick="go('offices-meeting')">Meeting Rooms</span>
+          <span class="dropdown-link" onclick="go('offices-meeting-room')">Book a Room</span>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" onclick="go('rooftop')">Rooftop</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" onclick="go('contact')">Contact</button>
+    </li>
+  </ul>
+  <button class="nav-reserve" onclick="go('bakery-reservations')">Reserve</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: HOME  /
+═══════════════════════════════════════════ -->
+<div class="page active" id="p-home">
+  <div class="hero home-hero">
+    <div class="home-overlay-box" style="position:absolute;bottom:2rem;left:2rem;">
+      <div class="home-tagline">Est. 2023 · A world apart</div>
+      <h1>
+        Where every<br>
+        moment turns golden
+      </h1>
+      <p>
+        Fine dining, artisan bakery, rooftop terrace, premium offices & unforgettable events — all under one gilded roof.
+      </p>
+      <div class="home-buttons">
+        <a href="#" class="home-btn primary" onclick="go('bakery-reservations')">Make a reservation</a>
+        <a href="#" class="home-btn" onclick="go('events')">Plan an event</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- What we offer -->
+  <div class="section" style="background:var(--dark-2);">
+    <div class="section-inner">
+      <div class="section-label">Our world</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;">
+        <h2 class="section-title" style="margin-bottom:0;">Five exceptional<br><em>destinations</em></h2>
+        <p class="section-sub" style="max-width:360px;">Every corner of Golden Dream is designed to transport you — whether you're here to eat, work, celebrate, or simply breathe.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card" onclick="go('bakery')">
+          <div class="card-num">01</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg></div>
+          <div class="card-title">Bakery & Restaurant</div>
+          <div class="card-text">From dawn pastries to candlelit fine dining, our kitchen crafts each plate with obsessive care and seasonal precision.</div>
+          <div class="card-link">Explore</div>
+        </div>
+        <div class="card" onclick="go('events')">
+          <div class="card-num">02</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+          <div class="card-title">Events</div>
+          <div class="card-text">Weddings, conferences, private parties — our spaces and team turn every occasion into a chapter worth remembering.</div>
+          <div class="card-link">Explore</div>
+        </div>
+        <div class="card" onclick="go('offices')">
+          <div class="card-num">03</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <div class="card-title">Offices</div>
+          <div class="card-text">Coworking spaces, private offices and meeting rooms where ambition meets luxury. Work elevated.</div>
+          <div class="card-link">Explore</div>
+        </div>
+        <div class="card" onclick="go('rooftop')">
+          <div class="card-num">04</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div class="card-title">Rooftop</div>
+          <div class="card-text">The city's most coveted open-air terrace. Sunset cocktails, private dinners, and skyline views that take your breath away.</div>
+          <div class="card-link">Explore</div>
+        </div>
+        <div class="card" onclick="go('contact')">
+          <div class="card-num">05</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+          <div class="card-title">Contact Us</div>
+          <div class="card-text">Our concierge team is ready to help you plan the extraordinary. Reach out and let's begin.</div>
+          <div class="card-link">Get in touch</div>
+        </div>
+        <div class="card" style="background:var(--gold);cursor:default;" >
+          <div class="card-num" style="color:rgba(14,12,8,.2);">GD</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--dark);line-height:1.2;margin-top:3rem;">The golden<br><em style="font-style:italic;">standard</em></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="gold-bar">
+    <div class="gold-bar-inner">
+      <div class="stat-item"><div class="stat-num">12+</div><div class="stat-label">Unique Spaces</div></div>
+      <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Events Hosted</div></div>
+      <div class="stat-item"><div class="stat-num">3★</div><div class="stat-label">Michelin Stars</div></div>
+      <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">Memories Created</div></div>
+    </div>
+  </div>
+
+  <div class="section" style="background:var(--dark);">
+    <div class="section-inner grid-2">
+      <div>
+        <div class="section-label">Philosophy</div>
+        <h2 class="section-title">Crafted with<br><em>intention</em></h2>
+        <p class="section-sub">Golden Dream was born from a belief that hospitality is an art form. Every detail — from the crumb of our sourdough to the angle of a rooftop lamp — is deliberate. We don't just serve spaces. We curate experiences.</p>
+        <div class="feature-list">
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Locally sourced, seasonally driven bakery & kitchen</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Award-winning interior design across all spaces</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Dedicated event concierge for every booking</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Private rooftop available exclusively after 8pm</div></div>
+        </div>
+        <button class="btn-gold" style="margin-top:2.5rem;" onclick="go('contact')">Get in touch</button>
+      </div>
+      <div class="photo-block" style="height:460px;">
+        <svg class="photo-art" viewBox="0 0 500 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="50" y="50" width="400" height="360" stroke="#C9A84C" stroke-width="0.5"/>
+          <rect x="70" y="70" width="360" height="320" stroke="#C9A84C" stroke-width="0.3"/>
+          <circle cx="250" cy="230" r="100" stroke="#C9A84C" stroke-width="0.5"/>
+          <circle cx="250" cy="230" r="60" stroke="#C9A84C" stroke-width="0.3"/>
+          <line x1="50" y1="230" x2="450" y2="230" stroke="#C9A84C" stroke-width="0.3"/>
+          <line x1="250" y1="50" x2="250" y2="410" stroke="#C9A84C" stroke-width="0.3"/>
+          <path d="M150 130 Q250 80 350 130 Q400 230 350 330 Q250 380 150 330 Q100 230 150 130Z" stroke="#C9A84C" stroke-width="0.4"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div id="home-footer"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: BAKERY & RESTAURANT  /bakery-restaurant
+═══════════════════════════════════════════ -->
+<div class="page" id="p-bakery">
+  <div class="hero">
+    <div class="hero-bg-dark"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">Bakery & Restaurant</div>
+      <h1 class="hero-h1">Where craft meets<br><em>pleasure</em></h1>
+      <p class="hero-p">A unified culinary destination where artisan bakery and fine dining come together as one extraordinary experience.</p>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="go('bakery-reservations')">Reserve a table</button>
+        <button class="btn-outline" onclick="go('bakery-menu')">View menu</button>
+      </div>
+    </div>
+  </div>
+  <div class="section" style="background:var(--dark-2);">
+    <div class="section-inner">
+      <div class="grid-3">
+        <div class="card" onclick="go('bakery-fine-dining')">
+          <div class="card-num">01</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></div>
+          <div class="card-title">Fine Dining</div>
+          <div class="card-text">A seasonal tasting menu where Michelin-starred technique meets heartfelt storytelling through food.</div>
+          <div class="card-link">Explore</div>
+        </div>
+        <div class="card" onclick="go('bakery-artisan')">
+          <div class="card-num">02</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M6 20v-2a6 6 0 0112 0v2"/></svg></div>
+          <div class="card-title">Artisan Bakery</div>
+          <div class="card-text">Sourdough loaves, laminated pastries, and seasonal tarts — each piece made by hand from 4am every morning.</div>
+          <div class="card-link">Explore</div>
+        </div>
+        <div class="card" onclick="go('bakery-signature')">
+          <div class="card-num">03</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <div class="card-title">Signature Experiences</div>
+          <div class="card-text">Chef's table, wine pairing dinners, and immersive tasting journeys curated for the most discerning palate.</div>
+          <div class="card-link">Explore</div>
+        </div>
+        <div class="card" onclick="go('bakery-menu')">
+          <div class="card-num">04</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="card-title">Our Menu</div>
+          <div class="card-text">Discover the full breadth of our kitchen — from morning pastries to evening à la carte.</div>
+          <div class="card-link">View menu</div>
+        </div>
+        <div class="card" onclick="go('bakery-reservations')">
+          <div class="card-num">05</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div class="card-title">Reservations</div>
+          <div class="card-text">Book your table for breakfast, lunch, or an intimate dinner for two — or a party of twenty.</div>
+          <div class="card-link">Book now</div>
+        </div>
+        <div class="card" onclick="go('bakery-hours')">
+          <div class="card-num">06</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="card-title">Opening Hours</div>
+          <div class="card-text">We open our doors early and keep them open late. Find your perfect moment to visit us.</div>
+          <div class="card-link">See hours</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: OPENING HOURS  /bakery-restaurant/opening-hours -->
+<div class="page" id="p-bakery-hours">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner" style="max-width:800px;">
+      <div class="section-label">Bakery & Restaurant</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Opening <em>Hours</em></h1>
+      <p class="section-sub" style="margin-bottom:3rem;">We're open seven days a week with continuous service from morning bakery through evening dining. Walk-ins welcome for bakery items; restaurant service requires advance reservation.</p>
+      <table class="hours-table">
+        <thead><tr><th>Day</th><th>Full Service Hours</th></tr></thead>
+        <tbody>
+          <tr><td>Monday</td><td>7:00 – 18:00 (Bakery service only)</td></tr>
+          <tr><td>Tuesday</td><td>7:00 – 22:30 (Full service: 12:00–15:00 lunch, 19:00–22:30 dinner)</td></tr>
+          <tr><td>Wednesday</td><td>7:00 – 22:30 (Full service: 12:00–15:00 lunch, 19:00–22:30 dinner)</td></tr>
+          <tr><td>Thursday</td><td>7:00 – 23:00 (Full service: 12:00–15:00 lunch, 19:00–23:00 dinner)</td></tr>
+          <tr><td>Friday</td><td>7:00 – 23:30 (Full service: 12:00–15:30 lunch, 19:00–23:30 dinner)</td></tr>
+          <tr><td>Saturday</td><td>8:00 – 23:30 (Full service: 11:30–16:00 lunch, 19:00–23:30 dinner)</td></tr>
+          <tr><td>Sunday</td><td>8:00 – 17:00 (Full service: 11:00–16:00 lunch service)</td></tr>
+        </tbody>
+      </table>
+      <div class="orn"></div>
+      <div style="background:var(--dark-2);border:1px solid var(--border);padding:2rem;margin-top:1rem;">
+        <div class="section-label">Good to know</div>
+        <div class="feature-list">
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Counter service closes when daily items sell out — arrive early on weekends</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Last kitchen orders taken 30 minutes before closing</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Special hours apply on public holidays — check our Instagram for updates</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Private hire available outside regular hours — contact events team</div></div>
+        </div>
+      </div>
+      <button class="btn-gold" style="margin-top:2.5rem;" onclick="go('bakery-reservations')">Make a reservation</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: RESERVATIONS  /bakery-restaurant/reservations -->
+<div class="page" id="p-bakery-reservations">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner" style="max-width:800px;">
+      <div class="section-label">Bakery & Restaurant</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Reserve your <em>table</em></h1>
+      <p class="section-sub" style="margin-bottom:1rem;">Reservations are required for our restaurant. Bakery seating is walk-in only. For private dining or groups of 8+, please contact us directly.</p>
+      <div class="form-wrap">
+        <div class="form-grid">
+          <div class="f-field"><input type="text" placeholder="First name"/></div>
+          <div class="f-field"><input type="text" placeholder="Last name"/></div>
+          <div class="f-field"><input type="email" placeholder="Email address"/></div>
+          <div class="f-field"><input type="tel" placeholder="Phone number"/></div>
+          <div class="f-field"><input type="date" style="color:var(--muted);"/></div>
+          <div class="f-field">
+            <select><option value="" disabled selected>Preferred time</option>
+              <option>Lunch — 12:00</option><option>Lunch — 12:30</option><option>Lunch — 13:00</option>
+              <option>Dinner — 19:00</option><option>Dinner — 19:30</option><option>Dinner — 20:00</option><option>Dinner — 21:00</option>
+            </select>
+          </div>
+          <div class="f-field">
+            <select><option value="" disabled selected>Number of guests</option>
+              <option>1 guest</option><option>2 guests</option><option>3 guests</option><option>4 guests</option>
+              <option>5 guests</option><option>6 guests</option><option>7+ guests (call us)</option>
+            </select>
+          </div>
+          <div class="f-field">
+            <select><option value="" disabled selected>Occasion</option>
+              <option>Birthday</option><option>Anniversary</option><option>Business dinner</option><option>Casual dining</option><option>Other</option>
+            </select>
+          </div>
+          <div class="f-field full"><textarea rows="3" placeholder="Any dietary requirements, allergies or special requests…"></textarea></div>
+          <button class="f-submit">Request reservation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: OUR MENU  /bakery-restaurant/our-menu -->
+<div class="page" id="p-bakery-menu">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner" style="max-width:900px;">
+      <div class="section-label">Bakery & Restaurant</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Our <em>Menu</em></h1>
+      <p class="section-sub" style="margin-bottom:3rem;">Seasonal menus updated monthly. All produce locally sourced where possible. Please inform us of allergies when reserving.</p>
+      <div class="menu-section">
+        <div class="menu-cat">BREAKFAST</div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Croissant</div><div class="menu-item-desc">Butter, plain, chocolate, almond, fruit</div></div><div class="menu-price">500 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Pastries</div><div class="menu-item-desc">Chocolate croissant, raisin bread, apple turnover</div></div><div class="menu-price">600 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Breads</div><div class="menu-item-desc">Baguette, country bread, whole wheat bread</div></div><div class="menu-price">400 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Brunch Formula</div><div class="menu-item-desc">Hot drink + pastry + fried egg</div></div><div class="menu-price">1,500 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Continental Breakfast</div><div class="menu-item-desc">Fruit juice, bread, butter, jam, pastry</div></div><div class="menu-price">2,500 XOF</div></div>
+      </div>
+      <div class="menu-section">
+        <div class="menu-cat">OUR OMELETTES</div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Plain Omelette</div><div class="menu-item-desc">3 fresh eggs, aromatic herbs</div></div><div class="menu-price">1,200 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Cheese Omelette</div><div class="menu-item-desc">Emmental, gruyère, fresh goat cheese</div></div><div class="menu-price">1,800 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Ham Omelette</div><div class="menu-item-desc">Paris ham, cheese</div></div><div class="menu-price">2,200 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Forestière Omelette</div><div class="menu-item-desc">Mushrooms, bacon, onions, parsley</div></div><div class="menu-price">2,500 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Complete Omelette</div><div class="menu-item-desc">Ham, cheese, mushrooms, tomatoes</div></div><div class="menu-price">3,000 XOF</div></div>
+      </div>
+      <div class="menu-section">
+        <div class="menu-cat">OUR ICE CREAMS</div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Natural Ice Cream</div><div class="menu-item-desc">Vanilla, chocolate, strawberry, pistachio</div></div><div class="menu-price">800 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Special Ice Cream</div><div class="menu-item-desc">Mango, coconut, pineapple, red berries</div></div><div class="menu-price">1,000 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Ice Cream Cup</div><div class="menu-item-desc">2 scoops, whipped cream, choice of sauce</div></div><div class="menu-price">1,500 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Sundae</div><div class="menu-item-desc">Ice cream, fruits, nuts, hot chocolate</div></div><div class="menu-price">2,000 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Banana Split</div><div class="menu-item-desc">Banana, 3 scoops, whipped cream, fruits</div></div><div class="menu-price">2,500 XOF</div></div>
+      </div>
+      <div class="menu-section">
+        <div class="menu-cat">OUR AFRICAN DISHES</div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Thiéboudienne</div><div class="menu-item-desc">Fragrant rice with fresh fish, vegetables, tomato sauce</div></div><div class="menu-price">3,500 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Yassa Chicken</div><div class="menu-item-desc">Lemon marinated chicken, onions, mustard, rice</div></div><div class="menu-price">3,000 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Mafé Beef</div><div class="menu-item-desc">Beef in peanut sauce, sweet potatoes, white rice</div></div><div class="menu-price">3,200 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Attiéké Fish</div><div class="menu-item-desc">Fried fish, attiéké, spicy tomato sauce</div></div><div class="menu-price">2,800 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Rice Okra Sauce</div><div class="menu-item-desc">White rice, fresh okra sauce, beef meat</div></div><div class="menu-price">2,500 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Fufu Ntokuma Sauce</div><div class="menu-item-desc">Cassava fufu, spinach sauce, smoked fish</div></div><div class="menu-price">2,200 XOF</div></div>
+      </div>
+      <div class="menu-section">
+        <div class="menu-cat">OUR MEATS</div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Chicken Skewer</div><div class="menu-item-desc">Marinated chicken, onions, peppers, spices</div></div><div class="menu-price">1,800 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Lamb Skewer</div><div class="menu-item-desc">Tender lamb, aromatic herbs, pilaf rice</div></div><div class="menu-price">2,200 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Beef Rib</div><div class="menu-item-desc">Grilled, pepper sauce, homemade fries</div></div><div class="menu-price">4,500 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Chicken DG</div><div class="menu-item-desc">Chicken, plantains, vegetables, Cameroonian spices</div></div><div class="menu-price">3,000 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Dibi Lamb</div><div class="menu-item-desc">Roasted lamb, onions, mustard, bread</div></div><div class="menu-price">2,800 XOF</div></div>
+        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Choukouya</div><div class="menu-item-desc">Dried beef, onion sauce, chili, rice</div></div><div class="menu-price">2,500 XOF</div></div>
+      </div>
+      <button class="btn-gold" onclick="go('bakery-reservations')">Reserve a table</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: SIGNATURE EXPERIENCES  /bakery-restaurant/signature-experiences -->
+<div class="page" id="p-bakery-signature">
+  <div class="hero" style="min-height:50vh;height:50vh;">
+    <div class="hero-bg-dark"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">Bakery & Restaurant</div>
+      <h1 class="hero-h1">Signature <em>Experiences</em></h1>
+    </div>
+  </div>
+  <div class="section" style="background:var(--dark-2);">
+    <div class="section-inner">
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-num">01</div>
+          <div class="card-title">Chef's Table</div>
+          <div class="card-text">Six seats at the kitchen counter. Watch our brigade at work as the head chef guides you through an exclusive 10-course menu crafted that morning.</div>
+          <div style="font-size:.72rem;color:var(--gold);margin-bottom:.8rem;">From 127,912 XOF per person · Max 6 guests</div>
+          <div class="card-link">Enquire</div>
+        </div>
+        <div class="card">
+          <div class="card-num">02</div>
+          <div class="card-title">Sommelier's Journey</div>
+          <div class="card-text">An intimate vertical tasting led by our head sommelier. Six wines, six stories, six moments. Accompanied by matched bites from the kitchen.</div>
+          <div style="font-size:.72rem;color:var(--gold);margin-bottom:.8rem;">From 78,715 XOF per person · Max 12 guests</div>
+          <div class="card-link">Enquire</div>
+        </div>
+        <div class="card">
+          <div class="card-num">03</div>
+          <div class="card-title">Bakery Masterclass</div>
+          <div class="card-text">Spend a Saturday morning with our bakers learning the art of lamination, sourdough fermentation, and pastry decoration. Take home what you make.</div>
+          <div style="font-size:.72rem;color:var(--gold);margin-bottom:.8rem;">55,756 XOF per person · Saturdays 9am–1pm</div>
+          <div class="card-link">Book</div>
+        </div>
+        <div class="card">
+          <div class="card-num">04</div>
+          <div class="card-title">Private Dining Room</div>
+          <div class="card-text">An intimate room for up to 16 guests. Your own butler, your own menu. Perfect for celebrations that deserve complete privacy.</div>
+          <div style="font-size:.72rem;color:var(--gold);margin-bottom:.8rem;">From 524,766 XOF room hire · Menu from 62,316 XOF/pp</div>
+          <div class="card-link">Enquire</div>
+        </div>
+        <div class="card">
+          <div class="card-num">05</div>
+          <div class="card-title">Sunday Long Lunch</div>
+          <div class="card-text">A leisurely four-hour affair every Sunday. Live jazz, a rotating menu, free-flowing wine and the golden comfort of no hurry at all.</div>
+          <div style="font-size:.72rem;color:var(--gold);margin-bottom:.8rem;">58,380 XOF per person including drinks</div>
+          <div class="card-link">Book a seat</div>
+        </div>
+        <div class="card">
+          <div class="card-num">06</div>
+          <div class="card-title">Gift Experiences</div>
+          <div class="card-text">A Golden Dream experience gift card — valid across all our dining, bakery and rooftop experiences. The perfect golden gesture.</div>
+          <div style="font-size:.72rem;color:var(--gold);margin-bottom:.8rem;">From 32,798 XOF — personalised card</div>
+          <div class="card-link">Purchase</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: FINE DINING  /bakery-restaurant/fine-dining -->
+<div class="page" id="p-bakery-fine-dining">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner grid-2" style="gap:5rem;">
+      <div>
+        <div class="section-label">Bakery & Restaurant</div>
+        <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Fine <em>Dining</em></h1>
+        <p class="section-sub">Our restaurant is where the kitchen speaks its truest language. Each evening we serve a seasonal tasting menu — seven courses that trace the landscape, the season, and the story of the producer who grew what you're tasting.</p>
+        <div class="feature-list">
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">7-course seasonal tasting menu — changes monthly</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Michelin-starred kitchen brigade led by Chef Raphaël Moreau</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Optional sommelier wine & non-alcoholic pairing</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Vegetarian & vegan tasting menus available on request</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Smart casual dress code; jacket preferred</div></div>
+        </div>
+        <div style="margin-top:2.5rem;display:flex;gap:1rem;">
+          <button class="btn-gold" onclick="go('bakery-reservations')">Reserve a table</button>
+          <button class="btn-outline" onclick="go('bakery-menu')">View tasting menu</button>
+        </div>
+      </div>
+      <div class="photo-block" style="height:500px;">
+        <svg class="photo-art" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="padding:3rem;">
+          <circle cx="250" cy="250" r="180" stroke="#C9A84C" stroke-width="0.6"/>
+          <circle cx="250" cy="250" r="130" stroke="#C9A84C" stroke-width="0.4"/>
+          <circle cx="250" cy="250" r="60" stroke="#C9A84C" stroke-width="0.5"/>
+          <ellipse cx="250" cy="250" rx="200" ry="80" stroke="#C9A84C" stroke-width="0.3" transform="rotate(30 250 250)"/>
+          <ellipse cx="250" cy="250" rx="200" ry="80" stroke="#C9A84C" stroke-width="0.3" transform="rotate(90 250 250)"/>
+          <ellipse cx="250" cy="250" rx="200" ry="80" stroke="#C9A84C" stroke-width="0.3" transform="rotate(150 250 250)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: ARTISAN BAKERY  /bakery-restaurant/artisan-bakery -->
+<div class="page" id="p-bakery-artisan">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner grid-2" style="gap:5rem;">
+      <div class="photo-block" style="height:480px;">
+        <svg class="photo-art" viewBox="0 0 500 480" fill="none" style="padding:2.5rem;">
+          <rect x="80" y="200" width="340" height="200" rx="100" stroke="#C9A84C" stroke-width="0.6"/>
+          <rect x="120" y="230" width="260" height="140" rx="70" stroke="#C9A84C" stroke-width="0.4"/>
+          <path d="M80 200 Q250 100 420 200" stroke="#C9A84C" stroke-width="0.5"/>
+          <path d="M100 250 Q250 150 400 250" stroke="#C9A84C" stroke-width="0.3"/>
+          <line x1="150" y1="200" x2="150" y2="80" stroke="#C9A84C" stroke-width="0.4"/>
+          <line x1="250" y1="200" x2="250" y2="60" stroke="#C9A84C" stroke-width="0.4"/>
+          <line x1="350" y1="200" x2="350" y2="80" stroke="#C9A84C" stroke-width="0.4"/>
+          <circle cx="150" cy="70" r="8" stroke="#C9A84C" stroke-width="0.5"/>
+          <circle cx="250" cy="50" r="8" stroke="#C9A84C" stroke-width="0.5"/>
+          <circle cx="350" cy="70" r="8" stroke="#C9A84C" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div>
+        <div class="section-label">Bakery & Restaurant</div>
+        <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Artisan <em>Bakery</em></h1>
+        <p class="section-sub">Our bakers arrive before the city wakes. By the time you do, the croissants are already gilded and the sourdough is cooling on the rack. Everything made by hand, every morning, without exception.</p>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-time">04:00</div><div class="tl-content"><div class="tl-title">Ovens on</div><div class="tl-desc">Shaping begins for sourdough loaves, proofed overnight in the cold room.</div></div></div>
+          <div class="tl-item"><div class="tl-time">05:30</div><div class="tl-content"><div class="tl-title">Lamination</div><div class="tl-desc">Croissant dough is folded for the final time — 73 layers of butter and air.</div></div></div>
+          <div class="tl-item"><div class="tl-time">07:00</div><div class="tl-content"><div class="tl-title">Doors open</div><div class="tl-desc">Counter opens. First loaves, first pastries, first coffee of the day.</div></div></div>
+          <div class="tl-item"><div class="tl-time">10:00</div><div class="tl-content"><div class="tl-title">Afternoon items</div><div class="tl-desc">Tarts, cakes and seasonal specials emerge from the pastry kitchen.</div></div></div>
+        </div>
+        <button class="btn-gold" style="margin-top:2rem;" onclick="go('bakery-hours')">See opening hours</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: EVENTS  /events
+═══════════════════════════════════════════ -->
+<div class="page" id="p-events">
+  <div class="hero">
+    <div class="hero-bg-dark"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">Events at Golden Dream</div>
+      <h1 class="hero-h1">RICHARD F.<br><em>HOUNWEDO HALL</em></h1>
+      <p class="hero-p">Our modern multi-purpose hall is the ideal venue for all your events: meetings, conferences, weddings, birthdays, baptisms, communions and other celebrations.</p>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="go('contact')">Book Now</button>
+        <button class="btn-outline" onclick="go('events-weddings')">Weddings</button>
+      </div>
+    </div>
+  </div>
+  <div class="section" style="background:var(--dark-2);">
+    <div class="section-inner">
+      <div class="price-grid">
+        <div class="price-card">
+          <div class="price-name">SIMPLE OPTION</div>
+          <div class="price-amount">200,000 XOF</div>
+          <div class="price-features">
+            <div class="price-feat">150 chairs</div>
+            <div class="price-feat">Tables included</div>
+            <div class="price-feat">Air conditioning</div>
+            <div class="price-feat">Sound system</div>
+          </div>
+        </div>
+        <div class="price-card featured">
+          <div class="price-badge">Recommended</div>
+          <div class="price-name">GOLDEN OPTION</div>
+          <div class="price-amount">500,000 XOF</div>
+          <div class="price-features">
+            <div class="price-feat">All simple option features</div>
+            <div class="price-feat">Complete decoration</div>
+            <div class="price-feat">Professional DJ</div>
+            <div class="price-feat">Complete tableware</div>
+            <div class="price-feat">Water and wine glasses</div>
+            <div class="price-feat">Plates and cutlery</div>
+            <div class="price-feat">6 serving dishes</div>
+          </div>
+        </div>
+  <div class="price-card featured">
+          <div class="price-badge">Recommended</div>
+          <div class="price-name">CUSTOM OPTION</div>
+          <div class="price-amount">Custom</div>
+          <div class="price-features">
+            <div class="price-feat">All simple option features</div>
+            <div class="price-feat">Customizable menu</div>
+          </div> 
+          <div class="price-btns">
+            <button class="btn-gold" onclick="go('contact')">Book Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="feature-list" style="margin-top:3rem;">
+        <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Capacity: up to 300 people</div></div>
+    </div>
+      <div class="grid-3" style="margin-top:3rem;">
+        <div class="card" onclick="go('events-weddings')">
+          <div class="card-num">01</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+          <div class="card-title">Weddings</div>
+          <div class="card-text">From intimate civil ceremonies to grand celebrations of 300, we orchestrate every detail of your most precious day.</div>
+          <div class="card-link">Learn more</div>
+        </div>
+        <div class="card" onclick="go('events-parties')">
+          <div class="card-num">02</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></div>
+          <div class="card-title">Private Parties</div>
+          <div class="card-text">Birthdays, anniversaries, intimate dinners or rooftop soirées — we tailor every event to your vision and personality.</div>
+          <div class="card-link">Learn more</div>
+        </div>
+        <div class="card" onclick="go('events-conferences')">
+          <div class="card-num">03</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div class="card-title">Conferences</div>
+          <div class="card-text">World-class AV, catering, and breakout spaces that make your next conference the one people actually look forward to attending.</div>
+          <div class="card-link">Learn more</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gold-bar">
+    <div class="gold-bar-inner">
+      <div class="stat-item"><div class="stat-num">300</div><div class="stat-label">Max capacity</div></div>
+      <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Event spaces</div></div>
+      <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Events hosted</div></div>
+      <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Dedicated team</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: WEDDINGS  /events/weddings -->
+<div class="page" id="p-events-weddings">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner grid-2" style="gap:5rem;">
+      <div>
+        <div class="section-label">Events</div>
+        <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Your wedding,<br><em>gilded</em></h1>
+        <p class="section-sub">Golden Dream is one of the city's most celebrated wedding venues. Our spaces — from the grand ballroom to the rooftop terrace — become the backdrop of your most extraordinary day.</p>
+        <div class="feature-list">
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Capacity: 20 to 300 guests across multiple spaces</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Dedicated wedding planner assigned from first enquiry</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">In-house catering: bakery, fine dining or buffet formats</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Ceremony + reception packages available</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Full décor and floristry coordination</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Exclusive venue hire available Saturdays</div></div>
+        </div>
+        <button class="btn-gold" style="margin-top:2.5rem;" onclick="go('contact')">Begin your journey</button>
+      </div>
+      <div>
+        <div style="background:var(--dark-2);border:1px solid var(--border);padding:2.5rem;">
+          <div class="section-label">Packages</div>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-time">Elopement</div><div class="tl-content"><div class="tl-title">Intimate ceremony — up to 20 guests</div><div class="tl-desc">Private room, ceremony space, four-course dinner, champagne toast. From 2,951,807 XOF.</div></div></div>
+            <div class="tl-item"><div class="tl-time">Classic</div><div class="tl-content"><div class="tl-title">Up to 100 guests</div><div class="tl-desc">Full venue access, cocktail hour, dinner reception, overnight bridal suite. From 11,807,226 XOF.</div></div></div>
+            <div class="tl-item"><div class="tl-time">Grand</div><div class="tl-content"><div class="tl-title">Up to 300 guests</div><div class="tl-desc">Exclusive venue hire, rooftop terrace, bespoke menu, live music, full production. POA.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+<!-- PAGE: PRIVATE PARTIES  /events/private-parties -->
+<div class="page" id="p-events-parties">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner">
+      <div class="section-label">Events</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Private <em>Parties</em></h1>
+      <p class="section-sub" style="margin-bottom:3rem;">Birthday, anniversary, retirement, reunion — whatever the milestone, our events team designs an evening that reflects exactly who you are.</p>
+      <div class="rooms-grid">
+        <div class="room-card">
+          <div class="room-tag">Intimate</div>
+          <div class="room-name">The Salon</div>
+          <div class="room-capacity">Up to 30 guests · Private room</div>
+          <div class="room-features"><span class="room-feat">Private bar</span><span class="room-feat">AV system</span><span class="room-feat">Dedicated server</span><span class="room-feat">Custom menu</span></div>
+        </div>
+        <div class="room-card">
+          <div class="room-tag">Mid-size</div>
+          <div class="room-name">Garden Terrace</div>
+          <div class="room-capacity">Up to 80 guests · Semi-outdoor</div>
+          <div class="room-features"><span class="room-feat">Open air</span><span class="room-feat">DJ space</span><span class="room-feat">Dance floor</span><span class="room-feat">Bar cart</span></div>
+        </div>
+        <div class="room-card">
+          <div class="room-tag">Large event</div>
+          <div class="room-name">The Grand Hall</div>
+          <div class="room-capacity">Up to 200 guests · Full buyout</div>
+          <div class="room-features"><span class="room-feat">Live music</span><span class="room-feat">Photo wall</span><span class="room-feat">Catering</span><span class="room-feat">Lighting rig</span></div>
+        </div>
+        <div class="room-card">
+          <div class="room-tag">Exclusive</div>
+          <div class="room-name">Rooftop Night</div>
+          <div class="room-capacity">Up to 120 guests · Skyline views</div>
+          <div class="room-features"><span class="room-feat">Open sky</span><span class="room-feat">Cocktail bar</span><span class="room-feat">Fire pits</span><span class="room-feat">Sound system</span></div>
+        </div>
+      </div>
+      <button class="btn-gold" style="margin-top:3rem;" onclick="go('contact')">Enquire about your party</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: CONFERENCES  /events/conferences -->
+<div class="page" id="p-events-conferences">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner">
+      <div class="section-label">Events</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Conferences &<br><em>Corporate Events</em></h1>
+      <p class="section-sub" style="margin-bottom:3rem;">Meetings that people remember. Our conference spaces combine serious infrastructure with the kind of atmosphere that makes ideas flow.</p>
+      <div class="grid-2" style="gap:2rem;margin-bottom:3rem;">
+        <div style="background:var(--dark-2);border:1px solid var(--border);padding:2.5rem;">
+          <div class="section-label">Facilities</div>
+          <div class="feature-list">
+            <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">4K projection + 85" display screens throughout</div></div>
+            <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Professional AV team on-site for full-day events</div></div>
+            <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">High-speed dedicated Wi-Fi — up to 1Gbps</div></div>
+            <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Breakout rooms: 3 available alongside main hall</div></div>
+            <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Catering packages: coffee service to full lunches</div></div>
+            <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Reception desk and event coordinator included</div></div>
+          </div>
+        </div>
+        <div style="background:var(--dark-2);border:1px solid var(--border);padding:2.5rem;">
+          <div class="section-label">Conference packages</div>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-time">Half-day</div><div class="tl-content"><div class="tl-title">Up to 50 delegates · 4 hours</div><div class="tl-desc">Room hire, coffee & pastries, AV setup. From 787,148 XOF.</div></div></div>
+            <div class="tl-item"><div class="tl-time">Full day</div><div class="tl-content"><div class="tl-title">Up to 150 delegates · 8 hours</div><div class="tl-desc">Room + 2 breakouts, lunch, full catering, AV team. From 3,148,594 XOF.</div></div></div>
+            <div class="tl-item"><div class="tl-time">Summit</div><div class="tl-content"><div class="tl-title">Up to 300 delegates · Multi-day</div><div class="tl-desc">Full venue, production team, gala dinner option. POA.</div></div></div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-gold" onclick="go('contact')">Request a proposal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: OFFICES  /offices
+═══════════════════════════════════════════ -->
+<div class="page" id="p-offices">
+  <div class="hero">
+    <div class="hero-bg-dark"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">Offices at Golden Dream</div>
+      <h1 class="hero-h1">Work where<br>ambition feels <em>at home</em></h1>
+      <p class="hero-p">Coworking desks, private offices and meeting rooms — all inside a world-class venue, fuelled by our bakery kitchen.</p>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="go('offices-coworking')">Coworking</button>
+        <button class="btn-outline" onclick="go('offices-private')">Private offices</button>
+      </div>
+    </div>
+  </div>
+  <div class="section" style="background:var(--dark-2);">
+    <div class="section-inner">
+      <div class="grid-3">
+        <div class="card" onclick="go('offices-coworking')">
+          <div class="card-num">01</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div class="card-title">Coworking Hub</div>
+          <div class="card-text">Hot desks and dedicated desks in a beautifully designed open-plan space. Community, energy, and excellent coffee.</div>
+          <div class="card-link">View options</div>
+        </div>
+        <div class="card" onclick="go('offices-private')">
+          <div class="card-num">02</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <div class="card-title">Private Offices</div>
+          <div class="card-text">Lockable private offices for teams of 2 to 20. Fully furnished, climate controlled, and serviced daily.</div>
+          <div class="card-link">View options</div>
+        </div>
+        <div class="card" onclick="go('offices-meeting')">
+          <div class="card-num">03</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+          <div class="card-title">Meeting Rooms</div>
+          <div class="card-text">Book by the hour. Four rooms from intimate 4-person pods to a 20-seat boardroom, all with full AV and catering.</div>
+          <div class="card-link">Book a room</div>
+        </div>
+      </div>
+      <div class="orn"></div>
+      <div style="background:var(--dark-3);border:1px solid var(--border);padding:2.5rem;margin-top:1rem;">
+        <div class="section-label">Perks for all members</div>
+        <div class="grid-4" style="margin-top:1.5rem;gap:1rem;">
+          <div style="text-align:center;padding:1rem;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold);">☕</div>
+            <div style="font-size:.75rem;color:var(--cream);margin-top:.4rem;">Bakery discount 20%</div>
+          </div>
+          <div style="text-align:center;padding:1rem;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold);">🏢</div>
+            <div style="font-size:.75rem;color:var(--cream);margin-top:.4rem;">24/7 access</div>
+          </div>
+          <div style="text-align:center;padding:1rem;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold);">📶</div>
+            <div style="font-size:.75rem;color:var(--cream);margin-top:.4rem;">1Gbps Wi-Fi</div>
+          </div>
+          <div style="text-align:center;padding:1rem;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold);">🎟</div>
+            <div style="font-size:.75rem;color:var(--cream);margin-top:.4rem;">Event access priority</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: COWORKING  /offices/coworking -->
+<div class="page" id="p-offices-coworking">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner">
+      <div class="section-label">Offices</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Coworking <em>Hub</em></h1>
+      <p class="section-sub" style="margin-bottom:3rem;">An open-plan workspace designed for focus, collaboration, and accidental inspiration. Join a community of founders, freelancers, and creatives who call Golden Dream their second home.</p>
+      <div class="price-grid">
+        <div class="price-card">
+          <span class="price-badge">Day pass</span>
+          <div class="price-name">Drop-in</div>
+          <div class="price-amount">22,959 XOF<span class="price-period">/day</span></div>
+          <div class="price-features">
+            <div class="price-feat">Hot desk access</div>
+            <div class="price-feat">Unlimited coffee & water</div>
+            <div class="price-feat">High-speed Wi-Fi</div>
+            <div class="price-feat">Bakery discount 10%</div>
+          </div>
+          <button class="btn-outline" onclick="go('offices-coworking-spaces')">Book a day</button>
+        </div>
+        <div class="price-card featured">
+          <span class="price-badge">Most popular</span>
+          <div class="price-name">Member</div>
+          <div class="price-amount">183,668 XOF<span class="price-period">/month</span></div>
+          <div class="price-features">
+            <div class="price-feat">Dedicated desk, yours always</div>
+            <div class="price-feat">Storage locker included</div>
+            <div class="price-feat">2 meeting room hrs/month</div>
+            <div class="price-feat">Bakery discount 20%</div>
+            <div class="price-feat">Event access priority</div>
+          </div>
+          <button class="btn-gold" onclick="go('offices-coworking-spaces')">Apply for membership</button>
+        </div>
+        <div class="price-card">
+          <span class="price-badge">Team</span>
+          <div class="price-name">Team Bundle</div>
+          <div class="price-amount">590,361 XOF<span class="price-period">/month</span></div>
+          <div class="price-features">
+            <div class="price-feat">4 dedicated desks</div>
+            <div class="price-feat">10 meeting room hrs/month</div>
+            <div class="price-feat">Team locker room</div>
+            <div class="price-feat">Priority event invitations</div>
+          </div>
+          <button class="btn-outline" onclick="go('contact')">Contact us</button>
+        </div>
+      </div>
+      <button class="btn-gold" style="margin-top:3rem;" onclick="go('offices-coworking-spaces')">See available spaces</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: COWORKING SPACES  /offices/coworking/coworking-spaces -->
+<div class="page" id="p-offices-coworking-spaces">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner">
+      <div class="section-label">Offices · Coworking</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Available <em>Spaces</em></h1>
+      <p class="section-sub" style="margin-bottom:3rem;">Current coworking availability. Spaces are allocated on first-come, first-served basis for day passes, and on application for memberships.</p>
+      <div class="rooms-grid">
+        <div class="room-card">
+          <div class="room-tag" style="color:#4CAF50;">Available</div>
+          <div class="room-name">West Wing Open Floor</div>
+          <div class="room-capacity">18 hot desks · Natural light · Garden view</div>
+          <div class="room-features"><span class="room-feat">Sit-stand desks</span><span class="room-feat">Monitors</span><span class="room-feat">Phone booths</span></div>
+        </div>
+        <div class="room-card">
+          <div class="room-tag" style="color:#4CAF50;">Available</div>
+          <div class="room-name">The Library</div>
+          <div class="room-capacity">8 dedicated desks · Quiet zone</div>
+          <div class="room-features"><span class="room-feat">No calls policy</span><span class="room-feat">Premium chairs</span><span class="room-feat">Individual lighting</span></div>
+        </div>
+        <div class="room-card">
+          <div class="room-tag" style="color:var(--gold);">2 desks left</div>
+          <div class="room-name">Mezzanine Level</div>
+          <div class="room-capacity">12 dedicated desks · Panoramic windows</div>
+          <div class="room-features"><span class="room-feat">Standing option</span><span class="room-feat">Lockers</span><span class="room-feat">Printer access</span></div>
+        </div>
+        <div class="room-card">
+          <div class="room-tag" style="color:#e24b4b;">Waitlist only</div>
+          <div class="room-name">Founder's Corner</div>
+          <div class="room-capacity">6 premium desks · Semi-private</div>
+          <div class="room-features"><span class="room-feat">Dedicated server</span><span class="room-feat">Private shelf</span><span class="room-feat">Guest passes x2</span></div>
+        </div>
+      </div>
+      <button class="btn-gold" style="margin-top:3rem;" onclick="go('contact')">Reserve your spot</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: PRIVATE OFFICE  /offices/private-office -->
+<div class="page" id="p-offices-private">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner">
+      <div class="section-label">Offices</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Private <em>Offices</em></h1>
+      <p class="section-sub" style="margin-bottom:3rem;">Your team's own lockable space inside Golden Dream. Fully furnished, serviced daily, and available on flexible terms from 1 month upward.</p>
+      <div class="grid-2" style="gap:3rem;margin-bottom:2rem;">
+        <div style="background:var(--dark-2);border:1px solid var(--border);padding:2.5rem;">
+          <div class="section-label">What's included</div>
+          <div class="feature-list" style="margin-top:1rem;">
+            <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Fully furnished — desks, chairs, storage, whiteboards</div></div>
+            <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Daily cleaning & maintenance service</div></div>
+            <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Dedicated fibre line, your own VLAN</div></div>
+            <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Utilities, security, and building insurance included</div></div>
+            <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Registered business address</div></div>
+            <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Bakery discount 25% for all team members</div></div>
+          </div>
+        </div>
+        <div style="background:var(--dark-2);border:1px solid var(--border);padding:2.5rem;">
+          <div class="section-label">Office sizes available</div>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-time">Solo</div><div class="tl-content"><div class="tl-title">1–2 person office</div><div class="tl-desc">12–18 m² · From 557,564 XOF/month</div></div></div>
+            <div class="tl-item"><div class="tl-time">Small team</div><div class="tl-content"><div class="tl-title">3–6 person office</div><div class="tl-desc">25–45 m² · From 1,443,105 XOF/month</div></div></div>
+            <div class="tl-item"><div class="tl-time">Studio</div><div class="tl-content"><div class="tl-title">7–15 person office</div><div class="tl-desc">60–110 m² · From 3,607,764 XOF/month</div></div></div>
+            <div class="tl-item"><div class="tl-time">Floor</div><div class="tl-content"><div class="tl-title">16–30 person floor</div><div class="tl-desc">120–200 m² · POA</div></div></div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-gold" onclick="go('offices-private-suite')">View available suites</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: PRIVATE OFFICE SUITE  /offices/private-office/private-office -->
+<div class="page" id="p-offices-private-suite">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner">
+      <div class="section-label">Offices · Private Office</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Available <em>Suites</em></h1>
+      <p class="section-sub" style="margin-bottom:3rem;">Current private office availability. All offices available from 1-month rolling contracts. Enquire to arrange a viewing.</p>
+      <div class="rooms-grid">
+        <div class="room-card">
+          <div class="room-tag" style="color:#4CAF50;">Available immediately</div>
+          <div class="room-name">Suite 201</div>
+          <div class="room-capacity">2 person · 15 m² · 2nd floor</div>
+          <div class="room-features"><span class="room-feat">South-facing</span><span class="room-feat">Furnished</span><span class="room-feat">623,159 XOF/mo</span></div>
+        </div>
+        <div class="room-card">
+          <div class="room-tag" style="color:#4CAF50;">Available immediately</div>
+          <div class="room-name">Studio 304</div>
+          <div class="room-capacity">6 person · 42 m² · 3rd floor</div>
+          <div class="room-features"><span class="room-feat">Corner suite</span><span class="room-feat">Glass partition</span><span class="room-feat">1,574,297 XOF/mo</span></div>
+        </div>
+        <div class="room-card">
+          <div class="room-tag" style="color:var(--gold);">Available from June</div>
+          <div class="room-name">The Penthouse Office</div>
+          <div class="room-capacity">12 person · 95 m² · 5th floor</div>
+          <div class="room-features"><span class="room-feat">Rooftop access</span><span class="room-feat">Kitchenette</span><span class="room-feat">4,066,933 XOF/mo</span></div>
+        </div>
+        <div class="room-card">
+          <div class="room-tag" style="color:#e24b4b;">Waitlist open</div>
+          <div class="room-name">East Wing Floor</div>
+          <div class="room-capacity">25 person · 180 m² · 4th floor</div>
+          <div class="room-features"><span class="room-feat">Panoramic views</span><span class="room-feat">Boardroom</span><span class="room-feat">POA</span></div>
+        </div>
+      </div>
+      <button class="btn-gold" style="margin-top:3rem;" onclick="go('contact')">Book a viewing</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: MEETING ROOMS  /offices/meeting-rooms- -->
+<div class="page" id="p-offices-meeting">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner">
+      <div class="section-label">Offices</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Meeting <em>Rooms</em></h1>
+      <p class="section-sub" style="margin-bottom:3rem;">Four meeting rooms, book by the hour. From focused 1:1s to full-team strategy sessions, each room is equipped for serious work — and excellent coffee.</p>
+      <div class="rooms-grid">
+        <div class="room-card" onclick="go('offices-meeting-room')">
+          <div class="room-tag">4 people · 29,518 XOF/hr</div>
+          <div class="room-name">The Pod</div>
+          <div class="room-capacity">Intimate room for focused discussions</div>
+          <div class="room-features"><span class="room-feat">75" screen</span><span class="room-feat">Video call bar</span><span class="room-feat">Whiteboard</span></div>
+        </div>
+        <div class="room-card" onclick="go('offices-meeting-room')">
+          <div class="room-tag">8 people · 49,197 XOF/hr</div>
+          <div class="room-name">The Studio</div>
+          <div class="room-capacity">Mid-size workshop or presentation room</div>
+          <div class="room-features"><span class="room-feat">85" screen</span><span class="room-feat">AV system</span><span class="room-feat">Writable walls</span></div>
+        </div>
+        <div class="room-card" onclick="go('offices-meeting-room')">
+          <div class="room-tag">12 people · 72,155 XOF/hr</div>
+          <div class="room-name">The Boardroom</div>
+          <div class="room-capacity">Executive table, premium setting</div>
+          <div class="room-features"><span class="room-feat">Dual screens</span><span class="room-feat">Catering service</span><span class="room-feat">Video conf</span></div>
+        </div>
+        <div class="room-card" onclick="go('offices-meeting-room')">
+          <div class="room-tag">20 people · 104,953 XOF/hr</div>
+          <div class="room-name">The Amphitheatre</div>
+          <div class="room-capacity">Tiered seating for presentations & training</div>
+          <div class="room-features"><span class="room-feat">4K projector</span><span class="room-feat">Mic system</span><span class="room-feat">Recording</span></div>
+        </div>
+      </div>
+      <button class="btn-gold" style="margin-top:3rem;" onclick="go('offices-meeting-room')">Book a meeting room</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: BOOK MEETING ROOM  /offices/meeting-rooms-/meeting-room -->
+<div class="page" id="p-offices-meeting-room">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner" style="max-width:800px;">
+      <div class="section-label">Offices · Meeting Rooms</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Book a <em>Room</em></h1>
+      <p class="section-sub" style="margin-bottom:1rem;">Half-day and full-day bookings receive a 15% discount. Catering can be added at checkout. Cancellation free up to 24 hours prior.</p>
+      <div class="form-wrap">
+        <div class="form-grid">
+          <div class="f-field"><input type="text" placeholder="Your name"/></div>
+          <div class="f-field"><input type="email" placeholder="Email address"/></div>
+          <div class="f-field"><input type="text" placeholder="Company name"/></div>
+          <div class="f-field"><input type="tel" placeholder="Phone number"/></div>
+          <div class="f-field">
+            <select><option value="" disabled selected>Select room</option>
+              <option>The Pod — 4 people · €45/hr</option>
+              <option>The Studio — 8 people · €75/hr</option>
+              <option>The Boardroom — 12 people · €110/hr</option>
+              <option>The Amphitheatre — 20 people · €160/hr</option>
+            </select>
+          </div>
+          <div class="f-field">
+            <select><option value="" disabled selected>Number of attendees</option>
+              <option>1–4</option><option>5–8</option><option>9–12</option><option>13–20</option>
+            </select>
+          </div>
+          <div class="f-field"><input type="date" style="color:var(--muted);"/></div>
+          <div class="f-field">
+            <select><option value="" disabled selected>Duration</option>
+              <option>1 hour</option><option>2 hours</option><option>3 hours</option>
+              <option>Half day (4 hrs) — 15% off</option><option>Full day (8 hrs) — 15% off</option>
+            </select>
+          </div>
+          <div class="f-field full">
+            <select><option value="" disabled selected>Add catering?</option>
+              <option>No catering</option>
+              <option>Coffee & pastries — €8/person</option>
+              <option>Working lunch — €22/person</option>
+              <option>Full catering package — contact us</option>
+            </select>
+          </div>
+          <div class="f-field full"><textarea rows="2" placeholder="Any other requirements or notes…"></textarea></div>
+          <button class="f-submit">Confirm booking request</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: ROOFTOP  /rooftop
+═══════════════════════════════════════════ -->
+<div class="page" id="p-rooftop">
+  <div class="hero">
+    <div class="hero-bg-dark" style="background:radial-gradient(ellipse 80% 50% at 50% 30%,rgba(201,168,76,.1) 0%,transparent 70%),#0E0C08;"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">The Golden Dream Rooftop</div>
+      <h1 class="hero-h1">Above the city,<br>under the <em>stars</em></h1>
+      <p class="hero-p">The city's most coveted open-air terrace. Cocktails, private dinners, and events with a view that changes everything.</p>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="go('contact')">Book the rooftop</button>
+        <button class="btn-outline" onclick="go('events-parties')">Private hire</button>
+      </div>
+    </div>
+  </div>
+  <div class="section" style="background:var(--dark-2);">
+    <div class="section-inner grid-2" style="gap:5rem;">
+      <div>
+        <div class="section-label">The space</div>
+        <h2 class="section-title">Open air,<br><em>elevated</em> hospitality</h2>
+        <p class="section-sub">Perched on the 6th floor with 360° views of the skyline, our rooftop terrace is the city's best-kept secret — and its most talked-about destination.</p>
+        <div class="feature-list">
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Capacity: 120 guests standing, 60 seated for dinner</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Retractable canopy for all-weather events</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Bespoke cocktail bar & curated wine list</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Fire pits and outdoor heating for cooler evenings</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Integrated sound system — DJ booth available</div></div>
+          <div class="feat-row"><div class="feat-dot"></div><div class="feat-text">Open Thursday – Sunday from 6:30pm</div></div>
+        </div>
+        <div style="margin-top:2.5rem;display:flex;gap:1rem;">
+          <button class="btn-gold" onclick="go('contact')">Reserve for your event</button>
+          <button class="btn-outline" onclick="go('bakery-reservations')">Book a table</button>
+        </div>
+      </div>
+      <div>
+        <div class="grid-3" style="grid-template-columns:1fr 1fr;gap:1px;">
+          <div class="card" style="padding:2rem;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:var(--gold);line-height:1;">6th</div>
+            <div style="font-size:.7rem;color:var(--muted);letter-spacing:.1em;margin-top:.3rem;">Floor · city views</div>
+          </div>
+          <div class="card" style="padding:2rem;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:var(--gold);line-height:1;">120</div>
+            <div style="font-size:.7rem;color:var(--muted);letter-spacing:.1em;margin-top:.3rem;">Guest capacity</div>
+          </div>
+          <div class="card" style="padding:2rem;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:var(--gold);line-height:1;">4</div>
+            <div style="font-size:.7rem;color:var(--muted);letter-spacing:.1em;margin-top:.3rem;">Nights open / week</div>
+          </div>
+          <div class="card" style="padding:2rem;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:var(--gold);line-height:1;">360°</div>
+            <div style="font-size:.7rem;color:var(--muted);letter-spacing:.1em;margin-top:.3rem;">Panoramic views</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section" style="background:var(--dark);">
+    <div class="section-inner">
+      <div class="section-label">Rooftop menu highlights</div>
+      <h2 class="section-title" style="margin-bottom:2.5rem;">Cocktails &<br><em>small plates</em></h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);">
+        <div style="background:var(--dark-2);padding:2rem;">
+          <div class="menu-cat" style="font-size:1.1rem;">Signature Cocktails</div>
+          <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Golden Hour</div><div class="menu-item-desc">Aged rum, honey, yuzu, smoked paprika air</div></div><div class="menu-price">€16</div></div>
+          <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Rooftop Negroni</div><div class="menu-item-desc">Single-barrel gin, Campari, smoked vermouth</div></div><div class="menu-price">€15</div></div>
+          <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">The Ascent</div><div class="menu-item-desc">Champagne, elderflower, gold leaf flake</div></div><div class="menu-price">€22</div></div>
+        </div>
+        <div style="background:var(--dark-2);padding:2rem;">
+          <div class="menu-cat" style="font-size:1.1rem;">Small Plates</div>
+          <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Wagyu crostini</div><div class="menu-item-desc">Sourdough, beef tartare, truffle mayo</div></div><div class="menu-price">€18</div></div>
+          <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Oysters</div><div class="menu-item-desc">Half dozen, mignonette & lemon</div></div><div class="menu-price">€24</div></div>
+          <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Burrata bites</div><div class="menu-item-desc">Heirloom tomato, aged balsamic, basil</div></div><div class="menu-price">€14</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: CONTACT  /contact-us
+═══════════════════════════════════════════ -->
+<div class="page" id="p-contact">
+  <div class="section" style="padding-top:8rem;">
+    <div class="section-inner">
+      <div class="grid-2" style="gap:6rem;align-items:start;">
+        <div>
+          <div class="section-label">Contact us</div>
+          <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Begin your<br><em>golden</em> story</h1>
+          <p class="section-sub" style="margin-bottom:2.5rem;">Our team responds within 24 hours. For urgent enquiries, please call us directly during opening hours.</p>
+          <div style="display:flex;flex-direction:column;gap:1.8rem;">
+            <div>
+              <div class="section-label" style="margin-bottom:.4rem;">Address</div>
+              <p style="font-size:.82rem;color:var(--muted);line-height:1.7;">C83P+HW4, Godomey</p>
+            </div>
+            <div>
+              <div class="section-label" style="margin-bottom:.4rem;">Phone</div>
+              <p style="font-size:.82rem;color:var(--muted);">+229 01 97 66 42 11</p>
+              <p style="font-size:.82rem;color:var(--muted);">+229 01 68 53 70 32</p>
+            </div>
+            <div>
+              <div class="section-label" style="margin-bottom:.4rem;">Email</div>
+              <p style="font-size:.82rem;color:var(--muted);">hello@goldendream.com</p>
+            </div>
+            <div>
+              <div class="section-label" style="margin-bottom:.4rem;">Hours</div>
+              <p style="font-size:.82rem;color:var(--muted);line-height:1.7;">Open · Closes 2 AM</p>
+            </div>
+            <div>
+              <div class="section-label" style="margin-bottom:.4rem;">Service Options</div>
+              <p style="font-size:.82rem;color:var(--muted);line-height:1.7;">All you can eat · Happy-hour food · Private dining room</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="form-grid" style="margin-top:0;">
+            <div class="f-field"><input type="text" placeholder="First name"/></div>
+            <div class="f-field"><input type="text" placeholder="Last name"/></div>
+            <div class="f-field"><input type="email" placeholder="Email"/></div>
+            <div class="f-field"><input type="tel" placeholder="Phone (optional)"/></div>
+            <div class="f-field full">
+              <select><option value="" disabled selected>Subject / Enquiry type</option>
+                <option>Fine Dining Reservation</option><option>Rooftop Booking</option>
+                <option>Wedding Planning</option><option>Private Party</option>
+                <option>Conference / Meeting Room</option><option>Coworking Membership</option>
+                <option>Private Office</option><option>General Enquiry</option>
+              </select>
+            </div>
+            <div class="f-field full"><textarea rows="5" placeholder="Tell us about your vision, event, or question…"></textarea></div>
+            <button class="f-submit">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: 404  /404-error
+═══════════════════════════════════════════ -->
+<div class="page" id="p-404">
+  <div class="e404">
+    <div>
+      <div class="e404-num">404</div>
+      <div class="e404-msg">Page not <em style="font-style:italic;color:var(--gold-light);">found</em></div>
+      <p class="e404-sub">This page has wandered off somewhere golden. Let us guide you back.</p>
+      <button class="btn-gold" onclick="go('home')">Return home</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: COOKIES  /cookies
+═══════════════════════════════════════════ -->
+<div class="page" id="p-cookies">
+  <div class="cookie-content" style="padding-top:8rem;">
+    <div class="section-label">Legal</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--cream);margin-bottom:2rem;">Cookie <em style="font-style:italic;color:var(--gold-light);">Policy</em></h1>
+    <p>This Cookie Policy explains how Golden Dream ("we", "us", or "our") uses cookies and similar technologies when you visit our website. Last updated: April 2026.</p>
+    <h2>What are cookies?</h2>
+    <p>Cookies are small text files placed on your device when you visit a website. They are widely used to make websites work, or work more efficiently, as well as to provide information to the owners of the site.</p>
+    <h2>How we use cookies</h2>
+    <p>We use cookies for the following purposes:</p>
+    <ul>
+      <li><strong style="color:var(--cream);font-weight:400;">Essential cookies:</strong> Required for the website to function. They enable core features such as security, network management, and accessibility.</li>
+      <li><strong style="color:var(--cream);font-weight:400;">Analytics cookies:</strong> Help us understand how visitors interact with our website by collecting and reporting information anonymously.</li>
+      <li><strong style="color:var(--cream);font-weight:400;">Preference cookies:</strong> Enable the website to remember your choices (e.g. language, region) to provide enhanced, personalised features.</li>
+      <li><strong style="color:var(--cream);font-weight:400;">Marketing cookies:</strong> Used to track visitors across websites. The intention is to display ads that are relevant and engaging for the individual user.</li>
+    </ul>
+    <h2>Managing your cookies</h2>
+    <p>You can control and manage cookies in various ways. Please bear in mind that removing or blocking cookies can impact your user experience. You can adjust your browser settings to manage cookies, or use our cookie preference centre below.</p>
+    <h2>Third-party cookies</h2>
+    <p>Some of our pages may contain content from third-party services (such as embedded maps, social media links, or analytics providers) that may set their own cookies. We do not control these cookies and recommend reviewing the relevant third-party privacy policies.</p>
+    <h2>Contact</h2>
+    <p>If you have any questions about our use of cookies, please contact us at: <span style="color:var(--gold);">privacy@goldendream.com</span></p>
+    <button class="btn-gold" style="margin-top:2rem;" onclick="go('contact')">Contact us</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER (shared)
+═══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Golden Dream</div>
+      <p class="footer-desc">A sanctuary of luxury, creativity and craft — where every detail is golden and every moment is made to last.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Restaurant</div>
+      <ul class="footer-links">
+        <li><span onclick="go('bakery')">Overview</span></li>
+        <li><span onclick="go('bakery-menu')">Our Menu</span></li>
+        <li><span onclick="go('bakery-fine-dining')">Fine Dining</span></li>
+        <li><span onclick="go('bakery-artisan')">Artisan Bakery</span></li>
+        <li><span onclick="go('bakery-signature')">Experiences</span></li>
+        <li><span onclick="go('bakery-reservations')">Reservations</span></li>
+        <li><span onclick="go('bakery-hours')">Opening Hours</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Events</div>
+      <ul class="footer-links">
+        <li><span onclick="go('events')">Overview</span></li>
+        <li><span onclick="go('events-weddings')">Weddings</span></li>
+        <li><span onclick="go('events-parties')">Private Parties</span></li>
+        <li><span onclick="go('events-conferences')">Conferences</span></li>
+      </ul>
+      <div class="footer-col-title" style="margin-top:1.5rem;">Rooftop</div>
+      <ul class="footer-links">
+        <li><span onclick="go('rooftop')">The Rooftop</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Offices</div>
+      <ul class="footer-links">
+        <li><span onclick="go('offices')">Overview</span></li>
+        <li><span onclick="go('offices-coworking')">Coworking</span></li>
+        <li><span onclick="go('offices-coworking-spaces')">Spaces</span></li>
+        <li><span onclick="go('offices-private')">Private Offices</span></li>
+        <li><span onclick="go('offices-private-suite')">Available Suites</span></li>
+        <li><span onclick="go('offices-meeting')">Meeting Rooms</span></li>
+        <li><span onclick="go('offices-meeting-room')">Book a Room</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Golden Dream. All rights reserved.</div>
+    <div class="footer-legal">
+      <span onclick="go('contact')">Contact</span>
+      <span onclick="go('cookies')">Cookie Policy</span>
+      <span>Privacy Policy</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const pageMap = {
+  'home':'p-home','bakery':'p-bakery','bakery-hours':'p-bakery-hours',
+  'bakery-reservations':'p-bakery-reservations','bakery-menu':'p-bakery-menu',
+  'bakery-signature':'p-bakery-signature','bakery-fine-dining':'p-bakery-fine-dining',
+  'bakery-artisan':'p-bakery-artisan','events':'p-events',
+  'events-weddings':'p-events-weddings','events-parties':'p-events-parties',
+  'events-conferences':'p-events-conferences','offices':'p-offices',
+  'offices-coworking':'p-offices-coworking','offices-coworking-spaces':'p-offices-coworking-spaces',
+  'offices-private':'p-offices-private','offices-private-suite':'p-offices-private-suite',
+  'offices-meeting':'p-offices-meeting','offices-meeting-room':'p-offices-meeting-room',
+  'rooftop':'p-rooftop','contact':'p-contact','404':'p-404','cookies':'p-cookies'
+};
+
+function go(key){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const target = document.getElementById(pageMap[key]||'p-404');
+  target.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
