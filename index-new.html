@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Golden Dream</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- Navigation -->
+<div id="nav-container"></div>
+
+<!-- Main Content Container -->
+<div id="pages-container">
+  <!-- Home Page -->
+  <div id="home-container"></div>
+  
+  <!-- Bakery Pages -->
+  <div id="bakery-container"></div>
+  <div id="bakery-hours-container"></div>
+  <div id="bakery-reservations-container"></div>
+  <div id="bakery-menu-container"></div>
+  <div id="bakery-fine-dining-container"></div>
+  <div id="bakery-artisan-container"></div>
+  <div id="bakery-signature-container"></div>
+  
+  <!-- Events Pages -->
+  <div id="events-container"></div>
+  <div id="events-weddings-container"></div>
+  <div id="events-parties-container"></div>
+  <div id="events-conferences-container"></div>
+  
+  <!-- Offices Pages -->
+  <div id="offices-container"></div>
+  <div id="offices-coworking-container"></div>
+  <div id="offices-coworking-spaces-container"></div>
+  <div id="offices-private-container"></div>
+  <div id="offices-private-suite-container"></div>
+  <div id="offices-meeting-container"></div>
+  <div id="offices-meeting-room-container"></div>
+  
+  <!-- Rooftop Page -->
+  <div id="rooftop-container"></div>
+  
+  <!-- Contact Page -->
+  <div id="contact-container"></div>
+  
+  <!-- Other pages can be added here as needed -->
+</div>
+
+<!-- Footer -->
+<div id="footer-container"></div>
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+
+<!-- Load external HTML components -->
+<script>
+// Load navigation
+fetch('nav.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('nav-container').innerHTML = html;
+  });
+
+// Load footer
+fetch('footer.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('footer-container').innerHTML = html;
+  });
+
+// Load pages
+fetch('pages/home.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('home-container').innerHTML = html;
+  });
+
+fetch('pages/bakery.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('bakery-container').innerHTML = html;
+  });
+
+fetch('pages/bakery-hours.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('bakery-hours-container').innerHTML = html;
+  });
+
+fetch('pages/bakery-reservations.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('bakery-reservations-container').innerHTML = html;
+  });
+
+fetch('pages/bakery-menu.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('bakery-menu-container').innerHTML = html;
+  });
+
+fetch('pages/bakery-fine-dining.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('bakery-fine-dining-container').innerHTML = html;
+  });
+
+fetch('pages/bakery-artisan.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('bakery-artisan-container').innerHTML = html;
+  });
+
+fetch('pages/bakery-signature.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('bakery-signature-container').innerHTML = html;
+  });
+
+fetch('pages/offices.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('offices-container').innerHTML = html;
+  });
+
+fetch('pages/offices-coworking.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('offices-coworking-container').innerHTML = html;
+  });
+
+fetch('pages/offices-coworking-spaces.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('offices-coworking-spaces-container').innerHTML = html;
+  });
+
+fetch('pages/offices-private.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('offices-private-container').innerHTML = html;
+  });
+
+fetch('pages/offices-private-suite.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('offices-private-suite-container').innerHTML = html;
+  });
+
+fetch('pages/offices-meeting.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('offices-meeting-container').innerHTML = html;
+  });
+
+fetch('pages/offices-meeting-room.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('offices-meeting-room-container').innerHTML = html;
+  });
+
+fetch('pages/events.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('events-container').innerHTML = html;
+  });
+
+fetch('pages/events-weddings.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('events-weddings-container').innerHTML = html;
+  });
+
+fetch('pages/events-parties.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('events-parties-container').innerHTML = html;
+  });
+
+fetch('pages/events-conferences.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('events-conferences-container').innerHTML = html;
+  });
+
+fetch('pages/offices.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('offices-container').innerHTML = html;
+  });
+
+fetch('pages/rooftop.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('rooftop-container').innerHTML = html;
+  });
+
+fetch('pages/contact.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('contact-container').innerHTML = html;
+  });
+</script>
+
+</body>
+</html>
