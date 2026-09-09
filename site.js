@@ -50,4 +50,44 @@ document.addEventListener('DOMContentLoaded', () => {
       link.classList.add('active');
     }
   });
+
+  document.querySelectorAll('form[data-submission-type]').forEach((form) => {
+    const feedback = form.querySelector('.form-feedback');
+    const submitButton = form.querySelector('[type="submit"]');
+    const dateInput = form.querySelector('input[type="date"]');
+    if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const originalText = submitButton.textContent;
+      const payload = Object.fromEntries(new FormData(form).entries());
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending…';
+      feedback.textContent = '';
+      feedback.className = 'form-feedback full';
+
+      try {
+        const response = await fetch(`/api/submissions/${form.dataset.submissionType}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Unable to send your request.');
+
+        form.reset();
+        if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
+        feedback.textContent = result.message;
+        feedback.classList.add('is-success');
+      } catch (error) {
+        feedback.textContent = error.message || 'Unable to send your request. Please try again.';
+        feedback.classList.add('is-error');
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      }
+    });
+  });
 });

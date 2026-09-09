@@ -77,32 +77,33 @@
       <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Reserve your <em>table</em></h1>
       <p class="section-sub" style="margin-bottom:1rem;">Reservations are required for our restaurant. Bakery seating is walk-in only. For private dining or groups of 8+, please contact us directly.</p>
       <div class="form-wrap">
-        <div class="form-grid">
-          <div class="f-field"><input type="text" placeholder="First name"/></div>
-          <div class="f-field"><input type="text" placeholder="Last name"/></div>
-          <div class="f-field"><input type="email" placeholder="Email address"/></div>
-          <div class="f-field"><input type="tel" placeholder="Phone number"/></div>
-          <div class="f-field"><input type="date" style="color:var(--muted);"/></div>
+        <form class="form-grid" data-submission-type="restaurant_reservation">
+          <div class="f-field"><input name="firstName" type="text" placeholder="First name" required/></div>
+          <div class="f-field"><input name="lastName" type="text" placeholder="Last name" required/></div>
+          <div class="f-field"><input name="email" type="email" placeholder="Email address" required/></div>
+          <div class="f-field"><input name="phone" type="tel" placeholder="Phone number"/></div>
+          <div class="f-field"><input name="date" type="date" style="color:var(--muted);" required/></div>
           <div class="f-field">
-            <select><option value="" disabled selected>Preferred time</option>
+            <select name="time" required><option value="" disabled selected>Preferred time</option>
               <option>Lunch — 12:00</option><option>Lunch — 12:30</option><option>Lunch — 13:00</option>
               <option>Dinner — 19:00</option><option>Dinner — 19:30</option><option>Dinner — 20:00</option><option>Dinner — 21:00</option>
             </select>
           </div>
           <div class="f-field">
-            <select><option value="" disabled selected>Number of guests</option>
+            <select name="guests" required><option value="" disabled selected>Number of guests</option>
               <option>1 guest</option><option>2 guests</option><option>3 guests</option><option>4 guests</option>
               <option>5 guests</option><option>6 guests</option><option>7+ guests (call us)</option>
             </select>
           </div>
           <div class="f-field">
-            <select><option value="" disabled selected>Occasion</option>
+            <select name="occasion"><option value="" disabled selected>Occasion</option>
               <option>Birthday</option><option>Anniversary</option><option>Business dinner</option><option>Casual dining</option><option>Other</option>
             </select>
           </div>
-          <div class="f-field full"><textarea rows="3" placeholder="Any dietary requirements, allergies or special requests…"></textarea></div>
-          <button class="f-submit">Request reservation</a>
-        </div>
+          <div class="f-field full"><textarea name="message" rows="3" placeholder="Any dietary requirements, allergies or special requests…"></textarea></div>
+          <button class="f-submit" type="submit">Request reservation</button>
+          <p class="form-feedback full" aria-live="polite"></p>
+        </form>
       </div>
     </div>
   </div>

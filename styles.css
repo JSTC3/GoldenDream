@@ -791,6 +791,28 @@ nav {
   letter-spacing: 0.3em;
 }
 
+.f-submit:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.form-feedback {
+  display: none;
+  margin: 0;
+  padding: 1rem 1.6rem;
+  background: var(--color-dark-2);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.form-feedback.is-success,
+.form-feedback.is-error {
+  display: block;
+}
+
+.form-feedback.is-success { color: #b8dca8; }
+.form-feedback.is-error { color: #ed9d9d; }
+
 .orn {
   display: flex;
   align-items: center;

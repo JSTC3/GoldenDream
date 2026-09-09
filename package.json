@@ -1,0 +1,15 @@
+{
+  "name": "golden-dream",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Golden Dream website and request storage",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "submissions": "node scripts/list-submissions.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "sql.js": "^1.14.2"
+  }
+}

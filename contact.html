@@ -103,22 +103,23 @@
           </div>
         </div>
         <div>
-          <div class="form-grid" style="margin-top:0;">
-            <div class="f-field"><input type="text" placeholder="First name"/></div>
-            <div class="f-field"><input type="text" placeholder="Last name"/></div>
-            <div class="f-field"><input type="email" placeholder="Email"/></div>
-            <div class="f-field"><input type="tel" placeholder="Phone (optional)"/></div>
+          <form class="form-grid" style="margin-top:0;" data-submission-type="information_request">
+            <div class="f-field"><input name="firstName" type="text" placeholder="First name" required/></div>
+            <div class="f-field"><input name="lastName" type="text" placeholder="Last name" required/></div>
+            <div class="f-field"><input name="email" type="email" placeholder="Email" required/></div>
+            <div class="f-field"><input name="phone" type="tel" placeholder="Phone (optional)"/></div>
             <div class="f-field full">
-              <select><option value="" disabled selected>Subject / Enquiry type</option>
+              <select name="subject" required><option value="" disabled selected>Subject / Enquiry type</option>
                 <option>Fine Dining Reservation</option><option>Rooftop Booking</option>
                 <option>Wedding Planning</option><option>Private Party</option>
                 <option>Conference / Meeting Room</option><option>Coworking Membership</option>
                 <option>Private Office</option><option>General Enquiry</option>
               </select>
             </div>
-            <div class="f-field full"><textarea rows="5" placeholder="Tell us about your vision, event, or question…"></textarea></div>
-            <button class="f-submit">Send message</a>
-          </div>
+            <div class="f-field full"><textarea name="message" rows="5" placeholder="Tell us about your vision, event, or question…" required></textarea></div>
+            <button class="f-submit" type="submit">Send message</button>
+            <p class="form-feedback full" aria-live="polite"></p>
+          </form>
         </div>
       </div>
     </div>

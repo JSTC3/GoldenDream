@@ -77,13 +77,13 @@
       <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Book a <em>Room</em></h1>
       <p class="section-sub" style="margin-bottom:1rem;">Half-day and full-day bookings receive a 15% discount. Catering can be added at checkout. Cancellation free up to 24 hours prior.</p>
       <div class="form-wrap">
-        <div class="form-grid">
-          <div class="f-field"><input type="text" placeholder="Your name"/></div>
-          <div class="f-field"><input type="email" placeholder="Email address"/></div>
-          <div class="f-field"><input type="text" placeholder="Company name"/></div>
-          <div class="f-field"><input type="tel" placeholder="Phone number"/></div>
+        <form class="form-grid" data-submission-type="meeting_room_request">
+          <div class="f-field"><input name="firstName" type="text" placeholder="Your name" required/></div>
+          <div class="f-field"><input name="email" type="email" placeholder="Email address" required/></div>
+          <div class="f-field"><input name="company" type="text" placeholder="Company name"/></div>
+          <div class="f-field"><input name="phone" type="tel" placeholder="Phone number"/></div>
           <div class="f-field">
-            <select><option value="" disabled selected>Select room</option>
+            <select name="room" required><option value="" disabled selected>Select room</option>
               <option>The Pod — 4 people · 45,000 XOF/hr</option>
               <option>The Studio — 8 people · 75,000 XOF/hr</option>
               <option>The Boardroom — 12 people · 110,000 XOF/hr</option>
@@ -91,28 +91,29 @@
             </select>
           </div>
           <div class="f-field">
-            <select><option value="" disabled selected>Number of attendees</option>
+            <select name="attendees" required><option value="" disabled selected>Number of attendees</option>
               <option>1–4</option><option>5–8</option><option>9–12</option><option>13–20</option>
             </select>
           </div>
-          <div class="f-field"><input type="date" style="color:var(--muted);"/></div>
+          <div class="f-field"><input name="date" type="date" style="color:var(--muted);" required/></div>
           <div class="f-field">
-            <select><option value="" disabled selected>Duration</option>
+            <select name="duration" required><option value="" disabled selected>Duration</option>
               <option>1 hour</option><option>2 hours</option><option>3 hours</option>
               <option>Half day (4 hrs) — 15% off</option><option>Full day (8 hrs) — 15% off</option>
             </select>
           </div>
           <div class="f-field full">
-            <select><option value="" disabled selected>Add catering?</option>
+            <select name="catering"><option value="" disabled selected>Add catering?</option>
                   <option>No catering — 0 XOF</option>
                   <option>Coffee & pastries — 8,000 XOF/person</option>
                   <option>Working lunch — 22,000 XOF/person</option>
               <option>Full catering package — contact us</option>
             </select>
           </div>
-          <div class="f-field full"><textarea rows="2" placeholder="Any other requirements or notes…"></textarea></div>
-          <button class="f-submit">Confirm booking request</a>
-        </div>
+          <div class="f-field full"><textarea name="message" rows="2" placeholder="Any other requirements or notes…"></textarea></div>
+          <button class="f-submit" type="submit">Confirm booking request</button>
+          <p class="form-feedback full" aria-live="polite"></p>
+        </form>
       </div>
     </div>
   </div>
