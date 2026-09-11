@@ -42,7 +42,7 @@ function createSchema() {
 }
 
 app.use(express.json({ limit: '20kb' }));
-app.use(express.static(__dirname, { extensions: ['html'] }));
+app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 
 const clean = (value, maxLength = 500) => String(value || '').trim().slice(0, maxLength);
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -1,4 +1,12 @@
-# Golden Dream request storage
+# Golden Dream
+
+The site is organized around a public web root:
+
+- `public/` contains the home, utility, and grouped content pages;
+- `public/assets/` contains shared CSS, JavaScript, and images;
+- `server.js`, `scripts/`, and `data/` stay outside the browser-facing files.
+
+## Request storage
 
 This site now stores these submissions in a local SQLite database:
 

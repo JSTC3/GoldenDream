@@ -41,12 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
   document.querySelectorAll('.nav-link').forEach((link) => {
     const href = link.getAttribute('href');
     if (!href) return;
-    const normalized = href.split('/').pop();
-    if (normalized === currentPage) {
+    const linkPath = new URL(href, window.location.href).pathname.replace(/\/$/, '') || '/';
+    if (linkPath === currentPath) {
       link.classList.add('active');
     }
   });

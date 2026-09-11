@@ -363,7 +363,7 @@ nav {
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('land.jpeg') no-repeat center center / cover;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/assets/images/land.jpeg') no-repeat center center / cover;
 }
 
 .home-overlay-box {
