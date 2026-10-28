@@ -396,7 +396,7 @@ MENU.forEach((d, i) => {
   card.innerHTML = `
     <div class="gm-photo">
       <span class="gm-cat">${esc(d.cat)}</span>
-      <img src="/assets/img/menu/${d.img}.jpg" alt="${esc(d.name)}" loading="lazy">
+      <img src="${esc(d.src || '/assets/img/menu/' + d.img + '.jpg')}" alt="${esc(d.name)}" loading="lazy" referrerpolicy="no-referrer">
     </div>
     <div class="gm-body">
       <div class="gm-head">
