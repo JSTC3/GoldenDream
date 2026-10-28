@@ -6,6 +6,133 @@
 <title>Our Menu — Golden Dream</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/assets/css/styles.css"/>
+<style>
+  /* ---------- Interactive menu (page-specific) ---------- */
+  .gm-menu {
+    --gm-gold: var(--gold, #c9a45c);
+    --gm-card: #15120d;
+    --gm-line: rgba(201,164,92,.25);
+    --gm-text: #f3ead8;
+    --gm-muted: rgba(243,234,216,.62);
+  }
+
+  /* Category filter */
+  .gm-filters {
+    display: flex; flex-wrap: wrap; gap: .6rem;
+    margin: 0 0 3rem;
+  }
+  .gm-chip {
+    font-family: 'Jost', sans-serif; font-weight: 300;
+    font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+    padding: .7rem 1.4rem; cursor: pointer;
+    background: transparent; color: var(--gm-gold);
+    border: 1px solid var(--gm-line);
+    transition: background .3s, color .3s, border-color .3s;
+  }
+  .gm-chip:hover, .gm-chip:focus-visible { border-color: var(--gm-gold); outline: none; }
+  .gm-chip[aria-pressed="true"] { background: var(--gm-gold); color: #14110c; border-color: var(--gm-gold); }
+
+  /* Grid: 3 columns desktop, 2 tablet, 1 mobile */
+  .gm-grid {
+    display: grid; gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 980px) { .gm-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .gm-grid { grid-template-columns: 1fr; } }
+
+  /* Card */
+  .gm-card {
+    position: relative; z-index: 1;
+    background: var(--gm-card);
+    border: 1px solid var(--gm-line);
+    overflow: hidden; cursor: pointer;
+    display: flex; flex-direction: column;
+    transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s, border-color .45s;
+    animation: gmIn .6s both;
+  }
+  @keyframes gmIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  .gm-card.is-hidden { display: none; }
+
+  .gm-photo {
+    position: relative; aspect-ratio: 4 / 3; overflow: hidden;
+    background: linear-gradient(135deg, #2a2113, #4a3a1c 55%, #2a2113);
+  }
+  .gm-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .8s cubic-bezier(.2,.8,.2,1);
+  }
+  .gm-photo::after { /* soft bottom fade into the card */
+    content: ''; position: absolute; inset: auto 0 0 0; height: 45%;
+    background: linear-gradient(to top, var(--gm-card), transparent);
+    pointer-events: none;
+  }
+  .gm-cat {
+    position: absolute; top: 1rem; left: 1rem; z-index: 2;
+    font-family: 'Jost', sans-serif; font-weight: 400;
+    font-size: .62rem; letter-spacing: .24em; text-transform: uppercase;
+    color: #14110c; background: var(--gm-gold);
+    padding: .4rem .75rem;
+  }
+
+  .gm-body { padding: 1.2rem 1.5rem 1.7rem; display: flex; flex-direction: column; gap: .55rem; }
+  .gm-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+  .gm-name {
+    font-family: 'Cormorant Garamond', serif; font-weight: 600;
+    font-size: 1.55rem; line-height: 1.15; color: var(--gm-text); margin: 0;
+  }
+  .gm-price {
+    font-family: 'Cormorant Garamond', serif; font-weight: 600; font-style: italic;
+    font-size: 1.2rem; color: var(--gm-gold); white-space: nowrap;
+  }
+  .gm-desc {
+    font-family: 'Jost', sans-serif; font-weight: 300;
+    font-size: .88rem; line-height: 1.6; color: var(--gm-muted); margin: 0;
+  }
+
+  /* Detail panel revealed on hover */
+  .gm-detail {
+    position: absolute; inset: 0; z-index: 3;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1.6rem;
+    background: linear-gradient(to top, rgba(12,10,7,.97) 55%, rgba(12,10,7,.55));
+    opacity: 0; transform: translateY(12px);
+    transition: opacity .4s, transform .4s;
+    pointer-events: none;
+  }
+  .gm-detail-label {
+    font-family: 'Jost', sans-serif; font-size: .62rem; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--gm-gold); margin-bottom: .6rem;
+  }
+  .gm-detail p {
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400;
+    font-size: 1.15rem; line-height: 1.55; color: var(--gm-text); margin: 0 0 1rem;
+  }
+  .gm-detail .gm-price { font-size: 1.4rem; }
+
+  /* Hover / focus / tap: card comes forward */
+  .gm-card:hover, .gm-card:focus-visible, .gm-card.is-open {
+    z-index: 20; transform: translateY(-10px) scale(1.06);
+    border-color: var(--gm-gold);
+    box-shadow: 0 30px 60px -10px rgba(0,0,0,.65), 0 0 0 1px var(--gm-gold), 0 0 40px -10px rgba(201,164,92,.35);
+    outline: none;
+  }
+  .gm-card:hover .gm-photo img, .gm-card:focus-visible .gm-photo img, .gm-card.is-open .gm-photo img { transform: scale(1.08); }
+  .gm-card:hover .gm-detail, .gm-card:focus-visible .gm-detail, .gm-card.is-open .gm-detail {
+    opacity: 1; transform: none;
+  }
+  /* Dim the siblings so the hovered dish stands out (desktop only) */
+  @media (hover: hover) {
+    .gm-grid:has(.gm-card:hover) .gm-card:not(:hover) { opacity: .55; filter: saturate(.7); }
+  }
+  .gm-card { transition-property: transform, box-shadow, border-color, opacity, filter; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gm-card, .gm-photo img, .gm-detail { transition: none; animation: none; }
+    .gm-card:hover, .gm-card:focus-visible, .gm-card.is-open { transform: none; }
+  }
+
+  .gm-note { margin-top: 3rem; }
+</style>
 </head>
 <body>
 
@@ -71,54 +198,18 @@
 </nav>
 
 <div class="page active">
-<div class="section" style="padding-top:8rem;">
-    <div class="section-inner" style="max-width:900px;">
+<div class="section gm-menu" style="padding-top:8rem;">
+    <div class="section-inner" style="max-width:1240px;">
       <div class="section-label">Bakery & Restaurant</div>
       <h1 class="hero-h1" style="font-size:clamp(2.5rem,5vw,4rem);text-align:left;animation:none;">Our <em>Menu</em></h1>
-      <p class="section-sub" style="margin-bottom:3rem;">Seasonal menus updated monthly. All produce locally sourced where possible. Please inform us of allergies when reserving.</p>
-      <div class="menu-section">
-        <div class="menu-cat">BREAKFAST</div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Croissants (5 pieces)</div><div class="menu-item-desc">Butter, plain, chocolate, almond, fruit</div></div><div class="menu-price">2,500 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Pastries (5 pieces)</div><div class="menu-item-desc">Chocolate croissant, raisin bread, apple turnover</div></div><div class="menu-price">3,000 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Breads (5 loaves)</div><div class="menu-item-desc">Baguette, country bread, whole wheat bread</div></div><div class="menu-price">2,000 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Brunch Formula</div><div class="menu-item-desc">Hot drink + pastry + fried egg</div></div><div class="menu-price">1,500 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Continental Breakfast</div><div class="menu-item-desc">Fruit juice, bread, butter, jam, pastry</div></div><div class="menu-price">2,500 XOF</div></div>
+      <p class="section-sub" style="margin-bottom:2.5rem;">Seasonal menus updated monthly. All produce locally sourced where possible. Hover over a dish to discover it — please inform us of allergies when reserving.</p>
+
+      <div class="gm-filters" id="gmFilters" role="group" aria-label="Filter menu by category"></div>
+      <div class="gm-grid" id="gmGrid"></div>
+
+      <div class="gm-note">
+        <a class="btn-gold" href="/bakery/reservations.html">Reserve a table</a>
       </div>
-      <div class="menu-section">
-        <div class="menu-cat">OUR OMELETTES</div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Plain Omelette</div><div class="menu-item-desc">3 fresh eggs, aromatic herbs</div></div><div class="menu-price">1,200 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Cheese Omelette</div><div class="menu-item-desc">Emmental, gruyère, fresh goat cheese</div></div><div class="menu-price">1,800 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Ham Omelette</div><div class="menu-item-desc">Paris ham, cheese</div></div><div class="menu-price">2,200 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Forestière Omelette</div><div class="menu-item-desc">Mushrooms, bacon, onions, parsley</div></div><div class="menu-price">2,500 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Complete Omelette</div><div class="menu-item-desc">Ham, cheese, mushrooms, tomatoes</div></div><div class="menu-price">3,000 XOF</div></div>
-      </div>
-      <div class="menu-section">
-        <div class="menu-cat">OUR ICE CREAMS</div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Natural Ice Cream</div><div class="menu-item-desc">Vanilla, chocolate, strawberry, pistachio</div></div><div class="menu-price">800 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Special Ice Cream</div><div class="menu-item-desc">Mango, coconut, pineapple, red berries</div></div><div class="menu-price">1,000 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Ice Cream Cup</div><div class="menu-item-desc">2 scoops, whipped cream, choice of sauce</div></div><div class="menu-price">1,500 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Sundae</div><div class="menu-item-desc">Ice cream, fruits, nuts, hot chocolate</div></div><div class="menu-price">2,000 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Banana Split</div><div class="menu-item-desc">Banana, 3 scoops, whipped cream, fruits</div></div><div class="menu-price">2,500 XOF</div></div>
-      </div>
-      <div class="menu-section">
-        <div class="menu-cat">OUR AFRICAN DISHES</div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Thiéboudienne</div><div class="menu-item-desc">Fragrant rice with fresh fish, vegetables, tomato sauce</div></div><div class="menu-price">3,500 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Yassa Chicken</div><div class="menu-item-desc">Lemon marinated chicken, onions, mustard, rice</div></div><div class="menu-price">3,000 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Mafé Beef</div><div class="menu-item-desc">Beef in peanut sauce, sweet potatoes, white rice</div></div><div class="menu-price">3,200 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Attiéké Fish</div><div class="menu-item-desc">Fried fish, attiéké, spicy tomato sauce</div></div><div class="menu-price">2,800 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Rice Okra Sauce</div><div class="menu-item-desc">White rice, fresh okra sauce, beef meat</div></div><div class="menu-price">2,500 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Fufu Ntokuma Sauce</div><div class="menu-item-desc">Cassava fufu, spinach sauce, smoked fish</div></div><div class="menu-price">2,200 XOF</div></div>
-      </div>
-      <div class="menu-section">
-        <div class="menu-cat">OUR MEATS</div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Chicken Skewer</div><div class="menu-item-desc">Marinated chicken, onions, peppers, spices</div></div><div class="menu-price">1,800 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Lamb Skewer</div><div class="menu-item-desc">Tender lamb, aromatic herbs, pilaf rice</div></div><div class="menu-price">2,200 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Beef Rib</div><div class="menu-item-desc">Grilled, pepper sauce, homemade fries</div></div><div class="menu-price">4,500 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Chicken DG</div><div class="menu-item-desc">Chicken, plantains, vegetables, Cameroonian spices</div></div><div class="menu-price">3,000 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Dibi Lamb</div><div class="menu-item-desc">Roasted lamb, onions, mustard, bread</div></div><div class="menu-price">2,800 XOF</div></div>
-        <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Choukouya</div><div class="menu-item-desc">Dried beef, onion sauce, chili, rice</div></div><div class="menu-price">2,500 XOF</div></div>
-      </div>
-      <a class="btn-gold" href="/bakery/reservations.html">Reserve a table</a>
     </div>
   </div>
 </div>
@@ -177,6 +268,162 @@
   </div>
 </footer>
 
-  <script src="/assets/js/site.js" defer></script>
+<script>
+/* ---------- Menu data ----------
+   Photos live in /assets/img/menu/<img>.jpg  (4:3 ratio recommended, ~1200×900).
+   If a photo is missing, a golden placeholder is shown instead. */
+const MENU = [
+  /* BREAKFAST */
+  { cat:'Breakfast', name:'Croissants (5 pieces)', price:'2,500 XOF', img:'croissants',
+    desc:'Butter, plain, chocolate, almond, fruit.',
+    detail:'Laminated by hand each morning and baked until shatteringly crisp outside, soft and honeyed within. Five pieces to share — or not.' },
+  { cat:'Breakfast', name:'Pastries (5 pieces)', price:'3,000 XOF', img:'pastries',
+    desc:'Chocolate croissant, raisin bread, apple turnover.',
+    detail:'An assortment from our artisan oven: flaky pain au chocolat, a swirl of raisin bread and a warm apple turnover with a caramelised edge.' },
+  { cat:'Breakfast', name:'Breads (5 loaves)', price:'2,000 XOF', img:'breads',
+    desc:'Baguette, country bread, whole wheat bread.',
+    detail:'Slow-fermented dough, crackling crusts and an open crumb. Perfect with butter at the table or carried home still warm.' },
+  { cat:'Breakfast', name:'Brunch Formula', price:'1,500 XOF', img:'brunch',
+    desc:'Hot drink + pastry + fried egg.',
+    detail:'Your choice of coffee, tea or hot chocolate, a freshly baked pastry and a golden fried egg. A simple start, done properly.' },
+  { cat:'Breakfast', name:'Continental Breakfast', price:'2,500 XOF', img:'continental',
+    desc:'Fruit juice, bread, butter, jam, pastry.',
+    detail:'Freshly pressed juice, warm bread with cultured butter, house-made jam and a pastry of the day, served unhurried.' },
+
+  /* OMELETTES */
+  { cat:'Omelettes', name:'Plain Omelette', price:'1,200 XOF', img:'omelette-plain',
+    desc:'3 fresh eggs, aromatic herbs.',
+    detail:'Three farm eggs folded soft and creamy with chives, parsley and a touch of butter. The classic, perfectly executed.' },
+  { cat:'Omelettes', name:'Cheese Omelette', price:'1,800 XOF', img:'omelette-cheese',
+    desc:'Emmental, gruyère, fresh goat cheese.',
+    detail:'A trio of cheeses melted into a tender omelette — nutty gruyère, mellow emmental and a tangy ribbon of fresh goat cheese.' },
+  { cat:'Omelettes', name:'Ham Omelette', price:'2,200 XOF', img:'omelette-ham',
+    desc:'Paris ham, cheese.',
+    detail:'Delicate Paris ham and melted cheese rolled inside fluffy eggs. Comforting, savoury and always a favourite.' },
+  { cat:'Omelettes', name:'Forestière Omelette', price:'2,500 XOF', img:'omelette-forestiere',
+    desc:'Mushrooms, bacon, onions, parsley.',
+    detail:'Mushrooms sautéed until golden with smoky bacon and sweet onions, finished with fresh parsley. Earthy and deeply flavourful.' },
+  { cat:'Omelettes', name:'Complete Omelette', price:'3,000 XOF', img:'omelette-complete',
+    desc:'Ham, cheese, mushrooms, tomatoes.',
+    detail:'Our fullest omelette: ham, melted cheese, sautéed mushrooms and ripe tomatoes — a whole meal in one golden fold.' },
+
+  /* ICE CREAM */
+  { cat:'Ice Cream', name:'Natural Ice Cream', price:'800 XOF', img:'ice-natural',
+    desc:'Vanilla, chocolate, strawberry, pistachio.',
+    detail:'Churned in small batches from real vanilla, dark chocolate, ripe strawberries and roasted pistachios. No shortcuts, no artificial flavour.' },
+  { cat:'Ice Cream', name:'Special Ice Cream', price:'1,000 XOF', img:'ice-special',
+    desc:'Mango, coconut, pineapple, red berries.',
+    detail:'Bright, tropical and sun-ripened — mango, creamy coconut, tangy pineapple and a tart red-berry swirl.' },
+  { cat:'Ice Cream', name:'Ice Cream Cup', price:'1,500 XOF', img:'ice-cup',
+    desc:'2 scoops, whipped cream, choice of sauce.',
+    detail:'Two scoops of your choice crowned with whipped cream and a drizzle of chocolate, caramel or strawberry sauce.' },
+  { cat:'Ice Cream', name:'Sundae', price:'2,000 XOF', img:'sundae',
+    desc:'Ice cream, fruits, nuts, hot chocolate.',
+    detail:'Layers of ice cream, fresh fruit and toasted nuts, finished at the table with a pour of hot chocolate that melts into every spoonful.' },
+  { cat:'Ice Cream', name:'Banana Split', price:'2,500 XOF', img:'banana-split',
+    desc:'Banana, 3 scoops, whipped cream, fruits.',
+    detail:'A ripe banana split lengthwise, three scoops, clouds of whipped cream and fresh fruit. Made for sharing, rarely shared.' },
+
+  /* AFRICAN DISHES */
+  { cat:'African Dishes', name:'Thiéboudienne', price:'3,500 XOF', img:'thieboudienne',
+    desc:'Fragrant rice with fresh fish, vegetables, tomato sauce.',
+    detail:'Senegal\'s celebrated dish: fresh fish stuffed with herbs, simmered with seasonal vegetables and served over rice that has soaked up the rich tomato broth.' },
+  { cat:'African Dishes', name:'Yassa Chicken', price:'3,000 XOF', img:'yassa',
+    desc:'Lemon marinated chicken, onions, mustard, rice.',
+    detail:'Chicken marinated overnight in lemon and mustard, grilled, then slow-braised in a mound of sweet caramelised onions. Tangy, tender, unforgettable.' },
+  { cat:'African Dishes', name:'Mafé Beef', price:'3,200 XOF', img:'mafe',
+    desc:'Beef in peanut sauce, sweet potatoes, white rice.',
+    detail:'Beef simmered for hours in a velvety peanut sauce with sweet potatoes, served over fluffy white rice. Rich, warm and deeply comforting.' },
+  { cat:'African Dishes', name:'Attiéké Fish', price:'2,800 XOF', img:'attieke',
+    desc:'Fried fish, attiéké, spicy tomato sauce.',
+    detail:'Crisp fried fish on a bed of light, lemony cassava couscous, with a fiery tomato sauce on the side. A coastal classic.' },
+  { cat:'African Dishes', name:'Rice Okra Sauce', price:'2,500 XOF', img:'okra',
+    desc:'White rice, fresh okra sauce, beef meat.',
+    detail:'Fresh okra cooked down into a silky, savoury sauce with tender pieces of beef, spooned over steaming white rice.' },
+  { cat:'African Dishes', name:'Fufu Ntokuma Sauce', price:'2,200 XOF', img:'fufu',
+    desc:'Cassava fufu, spinach sauce, smoked fish.',
+    detail:'Soft, hand-pounded cassava fufu served with a deep green spinach sauce built on smoked fish. Traditional, hearty and full of character.' },
+
+  /* MEATS */
+  { cat:'Meats', name:'Chicken Skewer', price:'1,800 XOF', img:'chicken-skewer',
+    desc:'Marinated chicken, onions, peppers, spices.',
+    detail:'Chicken marinated in warm spices and grilled over open flame with onions and peppers until lightly charred and juicy.' },
+  { cat:'Meats', name:'Lamb Skewer', price:'2,200 XOF', img:'lamb-skewer',
+    desc:'Tender lamb, aromatic herbs, pilaf rice.',
+    detail:'Tender lamb scented with aromatic herbs, grilled to a rosy finish and served on fragrant pilaf rice.' },
+  { cat:'Meats', name:'Beef Rib', price:'4,500 XOF', img:'beef-rib',
+    desc:'Grilled, pepper sauce, homemade fries.',
+    detail:'A generous grilled beef rib, crusted and juicy, with a peppery sauce and hand-cut fries fried twice for crunch.' },
+  { cat:'Meats', name:'Chicken DG', price:'3,000 XOF', img:'chicken-dg',
+    desc:'Chicken, plantains, vegetables, Cameroonian spices.',
+    detail:'The "Directeur Général" of Cameroonian cuisine: chicken, caramelised ripe plantains and sautéed vegetables in warm, fragrant spices.' },
+  { cat:'Meats', name:'Dibi Lamb', price:'2,800 XOF', img:'dibi',
+    desc:'Roasted lamb, onions, mustard, bread.',
+    detail:'Dakar-style roasted lamb, chopped to order and served with sharp mustard-laced onions and fresh bread. Smoky and street-food proud.' },
+  { cat:'Meats', name:'Choukouya', price:'2,500 XOF', img:'choukouya',
+    desc:'Dried beef, onion sauce, chili, rice.',
+    detail:'Dried, smoke-kissed beef tossed in a spicy onion and chili sauce and served with rice. Bold, aromatic and gently fiery.' }
+];
+
+const grid = document.getElementById('gmGrid');
+const filters = document.getElementById('gmFilters');
+const cats = ['All', ...new Set(MENU.map(d => d.cat))];
+
+/* Filter chips */
+cats.forEach((c, i) => {
+  const b = document.createElement('button');
+  b.className = 'gm-chip'; b.type = 'button'; b.textContent = c;
+  b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+  b.addEventListener('click', () => {
+    filters.querySelectorAll('.gm-chip').forEach(x => x.setAttribute('aria-pressed', 'false'));
+    b.setAttribute('aria-pressed', 'true');
+    grid.querySelectorAll('.gm-card').forEach(card => {
+      card.classList.remove('is-open');
+      card.classList.toggle('is-hidden', c !== 'All' && card.dataset.cat !== c);
+    });
+  });
+  filters.appendChild(b);
+});
+
+/* Cards */
+const esc = s => s.replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+MENU.forEach((d, i) => {
+  const card = document.createElement('article');
+  card.className = 'gm-card';
+  card.tabIndex = 0;
+  card.dataset.cat = d.cat;
+  card.style.animationDelay = (i % 9) * 50 + 'ms';
+  card.innerHTML = `
+    <div class="gm-photo">
+      <span class="gm-cat">${esc(d.cat)}</span>
+      <img src="/assets/img/menu/${d.img}.jpg" alt="${esc(d.name)}" loading="lazy">
+    </div>
+    <div class="gm-body">
+      <div class="gm-head">
+        <h3 class="gm-name">${esc(d.name)}</h3>
+        <span class="gm-price">${esc(d.price)}</span>
+      </div>
+      <p class="gm-desc">${esc(d.desc)}</p>
+    </div>
+    <div class="gm-detail" aria-hidden="true">
+      <div class="gm-detail-label">${esc(d.cat)}</div>
+      <p>${esc(d.detail)}</p>
+      <span class="gm-price">${esc(d.price)}</span>
+    </div>`;
+  /* Missing photo → keep the golden gradient placeholder */
+  card.querySelector('img').addEventListener('error', e => { e.target.style.display = 'none'; });
+  /* Touch devices: tap to bring forward */
+  card.addEventListener('click', () => {
+    const open = card.classList.contains('is-open');
+    grid.querySelectorAll('.is-open').forEach(c => c.classList.remove('is-open'));
+    if (!open) card.classList.add('is-open');
+  });
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Escape') card.blur();
+  });
+  grid.appendChild(card);
+});
+</script>
+<script src="/assets/js/site.js" defer></script>
 </body>
 </html>
